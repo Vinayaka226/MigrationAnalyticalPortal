@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Edit Lesson</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <!--<link rel="stylesheet" href="{% static 'css/mystyle.css' %}">-->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  </head>
+  <body class="cui" data-theme="dark">
+
+  <div class="subheader">Centered</div>
+
+    <header class="header">
+      <div class="container">
+          <div class="header-panels">
+              <div class="header-panel">
+                 <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                     <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                  </a>
+                 <div class="header__title">Edit Lesson Page</div>
+             </div>
+              <div class="header-panel header-panel--center">
+                  <div class="header-item">
+                      <ul id="tabsheader" class="tabs">
+                        {% if user.is_authenticated %}
+            
+            
+            <!--<li id="tabsheader-1" class="tab">
+                  
+                                  <div class="tab__heading">Hello, {{user.first_name}},</div>
+                     
+                          </li>-->
+                          <li id="tabsheader-1" class="tab active">
+                              <a href=# tabindex="0">
+                                  <div class="tab__heading">Edit Lesson</div>
+                              </a>
+                          </li>
+                          <li id="tabsheader-2" class="tab">
+                              <a href="/LLM/mainPage/" tabindex="0">
+                                  <div class="tab__heading">Home</div>
+                              </a>
+                          </li>
+                          <li id="tabsheader-3" class="tab">
+                              <a href="/LLM/myLesson/{{user.first_name}}" tabindex="0">
+                                  <div class="tab__heading">My Lessons</div>
+                              </a>
+                          </li>
+                        {% endif %}
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/mainpage/" tabindex="0">
+                              <div class="tab__heading">Dashboard HomePage</div>
+                            </a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="header-panel header-panel--right">
+                {% if user.is_authenticated %}
+                  <a href="/account/logout" class="header-item">
+                      <span class="half-margin-right">Log Out</span>
+                      
+                  </a>
+                {% endif %}
+              </div>     
+         </div>
+      </div>
+    </header>
+
+<br>
+<br>
+
+<div id = "main">
+    {% for message in messages %}
+    <h5 style="color: #CD5C5C" align="center"> {{message}}</h5>
+    {% endfor %}
+    {% for lrows in lessons %}
+        <form action="/LLM/editLesson/{{lrows.IssueID.IssueID}}/{{firstName}}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <table class="table table--striped">            
+            <tr>
+              <header>
+                <th colspan="4"><h3 align="center">Edit Lesson Details</h3></th>
+              </header>
+            </tr>
+            <tr>
+                <th style = "text-align: center">Project Name : </th>
+                <td>
+                    <select name="project" id="project" value="{{lrows.project.project_Name}}" style=" margin: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    backgroundcolor: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4); ">
+                <option>Select Projects</option>
+                <option value="1">Morgan Stanley</option>
+                <option value="2">Citi Bank</option>
+                <option value="3">T-Mobile</option>
+            </select>
+
+
+
+
+                  
+          </td>
+                 
+                <th style = "text-align: center">Region</th>
+                <td><input type="text" name="region" style="color:black;" value={{lrows.IssueID.Region}}></td>
+                
+                
+            </tr>
+            
+            <tr>
+              <<!--<th>Recorded By: </th>-->
+              <th>Model Number </th>
+              <td><textarea name="modelNumber" style="color:black;">{{lrows.modelNumber}}</textarea>
+                  <!--<b>{{user.first_name}}</b>-->
+                </td>
+                <!--<td><input type="text" name="recorderBy" placeholder={{user.first_name}} style="color:#e2231a;" />
+                  <b>{{user.first_name}}</b>
+                </td>-->
+                <th style = "text-align: center">Device OS</th>
+                <td><input type="text" name="deviceOS" value= {{lrows.IssueID.DeviceOS}} style="color:black;"></td>
+            </tr>
+            <tr>
+              <th style = "text-align: center">Tac ID</th>
+                <td><input type="text" name="tacID" value={{lrows.IssueID.TACID}} style="color:black;"></td>
+                <th style = "text-align: center">Status</th>
+                <td><input type="text" name="status" value={{lrows.Status}} style="color:black;"></td>
+            </tr>
+            <tr>
+              <th  style = "text-align: center;"><b>Issue Title :</th>
+              <td><textarea name="title" style="color:black;">{{lrows.IssueID.IssueTitle}}</textarea>
+                <!--<input type="text" name="title" value={{lrows.IssueID.IssueTitle}}>-->
+                </td>
+              <th style = "text-align: center;">Date Of Migration</th>
+              <td><input type="date" name="date" value={{lrows.Date_of_Migration}} style="color:black;"></td>
+            </tr>
+            <tr>
+              <th style = "text-align: center; ">Activity Type</th>
+              <td><textarea name="activityType" style="color:black;">{{lrows.Activity_Type}}</textarea>
+                <!--<input type="text" name="activityType" value={{lrows.Activity_Type}}>--></td>
+              <th style = "text-align: center; ">Functional Block</th>
+              <td><textarea name="functionalBlock" style="color:black;">{{lrows.IssueID.FunctionalBlock}}</textarea>
+                <!--<input type="text" name="functionalBlock" value={{lrows.IssueID.FunctionalBlock}}>--></td>
+            </tr>
+          </table>
+         <br>
+         <table class="table table--striped">
+            <tr>
+                <th style = "text-align: center;"><h4><b>Description</h4></th>
+            </tr>
+            <tr>
+              <td><textarea rows="4" cols="169" name="description" style="color:black;">{{lrows.Description}}</textarea>
+              
+            </tr>
+            <tr>
+                <th style = "text-align: center;"><h4><b>Solution</h4></th>
+            </tr>
+            <tr>
+              <td><textarea rows="4" cols="169" name="solution" style="color:black;">{{lrows.Solution}}</textarea> 
+            </tr>
+            <tr>
+                <th style = "text-align: center;"><h4><b>What Did We Learn</h4></th>
+            </tr>
+            <tr>
+              <td><textarea rows="4" cols="169" name="learnt" style="color:black;">{{lrows.Lesson}}</textarea> 
+            </tr>
+            <tr>
+                <th style = "text-align: center;"><h4><b>How To Avoid</h4></th>
+            </tr>
+            <tr>
+              <td><textarea rows="4" cols="169" name="avoidance" style="color:black;">{{lrows.Avoidance}}</textarea> 
+            </tr>
+            {% endfor %}
+          </table>
+          <div class="col-6 col-lg-2 base-margin-top">
+          <button class="btn btn--primary" type="submit">Submit</button>
+      </div>
+          </form>
+          <div>
+  </div>
+         <br>
+          <a href="/LLM/mainPage">Home Page</a> 
+    <br>
+      <br>
+    </div>
+  </body>
+</html>

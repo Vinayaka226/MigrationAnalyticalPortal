@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Project Details</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  </head>
+  <body class="cui" data-theme="dark">
+
+  <div>
+      <header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">Migration Project Monthly Details</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <!--<div class="header-item">
+                    <ul id="tabsheader" class="tabs">
+                        <li id="tabsheader-1" class="tab active">
+                            <a tabindex="0">
+                                <div class="tab__heading">Tab 1</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-2" class="tab">
+                            <a tabindex="0">
+                                <div class="tab__heading">Tab 2</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a tabindex="0">
+                                <div class="tab__heading">Tab 3</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>-->
+            </div>
+        </div>
+   </div>
+</header>
+<div>
+  
+  <div class="row dbl-padding-bottom">
+        <div class="col-lg-6 col-xl-4 base-padding-bottom">
+            <div class="subheader">Basic</div>
+            <nav class="sidebar" role="navigation">
+                <div class="sidebar__header">
+                    <div class="sidebar__header-title">Options</div>
+                </div>
+                <ul>
+                    <li class="sidebar__item">
+                        <a>Monthly Data</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="/mainpage/">Home</a>
+                    </li>
+                   <!-- <li class="sidebar__item">
+                        <a>Automation</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a>Knowledge Base</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a>Accolades</a>
+                    </li>
+                    
+                    <li class="sidebar__item">
+                        <a>Upload Project Details</a>
+                    </li>-->
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+    </div>
+
+<div id = "main1">
+  <div class="maincontainer">
+    <br>
+    <div class="row base-margin-bottom">
+    <div class="col-12">
+      <div class="panel  text-weight-900">Monthly Details</div>
+      </div>
+    </div>
+{% for ragdet in ragDetails %}
+<div class="responsive-table">
+    <table class="table table--bordered" aria-label="Bordered table example">
+        <thead>
+            <tr>
+                
+                <th class="sortable">Month</th>
+                <th>Year</th>
+                <th>Windows Planned</th>
+                <th>Windows Completed</th>
+                <th>Open Issues</th>
+            </tr>
+            
+        </thead>
+
+        <tbody>
+            <tr>
+                
+                <td>{{ragdet.month}}</td>
+                <td>{{ragdet.year}}</td>
+                <td>{{ragdet.windowsPlanned}}</td>
+                <td>{{ragdet.windowsCompleted}}</td>
+                <td>{{ragdet.openIssues}}</td>
+            </tr>
+            
+        </tbody>
+    </table>
+</div>
+{% endfor %}
+     
+  </div> 
+  </div> 
+    <br>
+    <br>
+  </div>
+  <!--<script>
+    window.onload = function(){
+
+      drawSites({{pdInfo.numberOfSitesPlanned}},{{pdInfo.numOfSitesMigrated}});
+      drawDevices({{pdInfo.numOfDevicesPlannedForMigration}},{{pdInfo.numberOfDevicesMigrated}});
+      drawWindows({{pdInfo.numberOfWindowsPlanned}},{{pdInfo.numberOfWindowsExecuted}},{{pdInfo.numOfWindowsExecutedWidOutRollback}});
+  };
+  </script>
+  <div class="containerGraph">
+  <div class="row">
+      <div class="col-xs-4"><canvas id="mySites" width="300" height="300"></canvas></div>
+      <div class="col-xs-4"><canvas id="myDevices" width="300" height="300"></canvas></div>
+      <div class="col-xs-4"><canvas id="myWindows" width="300" height="300"></canvas></div>
+  </div>
+  </div>-->
+    <br>
+    <!--<h3>Detils on a monthly basis</h3>
+    {% for ragdet in ragDetails %}
+      <div>
+        <table id = "threeCols">
+          <tr>
+            <header>
+              <th>Project ID</th>
+              <td>{{pdInfo.ProjectId}}</td>
+            </header>
+          </tr>
+          <tr>
+            <header>
+              <th>Month</th>
+              <td>{{ragdet.month}}</td>
+            </header>
+          </tr>
+          <tr>
+            <header>
+              <th>Year</th>
+              <td>{{ragdet.year}}</td>
+            </header>
+          </tr>
+          <tr>
+            <header>
+              <th>Windows Planned</th>
+              <td>{{ragdet.windowsPlanned}}</td>
+            </header>
+          </tr>
+          <tr>
+            <header>
+              <th>Windows Completed</th>
+              <td>{{ragdet.windowsCompleted}}</td>
+            </header>
+          </tr>
+          <tr>
+            <header>
+              <th>Open Issues</th>
+              <td>{{ragdet.openIssues}}</td>
+            </header>
+          </tr>
+          <br>
+          <br>
+        </table>
+        {% endfor %}
+      </div>
+    </div>-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script type="text/javascript" src="{% static 'js/projAdditionalInfoCharts.js' %}"></script>
+  <!--<script type="text/javascript" src="chart.js"></script>
+  <script type="text/javascript" src="chartpie.js"></script>
+  <script type="text/javascript" src="chartline.js"></script>-->
+  <!--<script type="text/javascript" src="speedometer.js"></script>
+  <script type="text/javascript" src="speedometer.js"></script>-->
+  </body>
+</html>

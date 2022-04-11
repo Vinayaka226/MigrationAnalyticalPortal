@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Project Details</title>
+    {% load static %}
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+    <script
+src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js">
+</script>
+  </head>
+  <body class="cui" data-theme="dark">
+    <div>
+      <header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">Migration Analytical Portal</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <div class="header-item">
+		{% if user.is_authenticated and user.is_staff%}
+                    <ul id="tabsheader" class="tabs">
+                        <li id="tabsheader-1" class="tab active">
+                            <a tabindex="0">
+                                <div class="tab__heading">Details Page</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-2" class="tab">
+                            <a href="/mainpage/">
+                                <div class="tab__heading">Back</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/account/logout">
+                                <div class="tab__heading">Logout</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+   </div>
+{% endif %}
+</header>
+    </div>
+  <!--<div class="row dbl-padding-bottom">
+        <div class="col-lg-6 col-xl-4 base-padding-bottom">
+            <div class="subheader">Basic</div>
+            <nav class="sidebar" role="navigation">
+                <div class="sidebar__header">
+                    <div class="sidebar__header-title">Options</div>
+                </div>
+                <ul>
+                    <li class="sidebar__item">
+                        <a href="/resources/">Resource Status</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="/projAutomation/">Automation</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a>Knowledge Base</a>
+                    </li>
+                    <!--<li class="sidebar__item">
+                        <a href="/getProjAdditionalData/{{pdInfo.ProjectId}}">Monthly Information</a>
+                    </li>-->
+                    <li class="sidebar__item">
+                        <a href="/mainpage/">Home</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div> -->
+
+
+
+<script>
+$(document).ready(function(){
+
+    $('#threeCols td.y_n').each(function(){
+        if ($(this).text() == "Green") {
+            $(this).css('width','40px');
+            $(this).css('margin','1% 42%');
+            $(this).css('height','40px');
+            $(this).css('float','left');
+            $(this).css('background-color','#3BB300');
+            $(this).css('border-radius','50px');
+            $(this).css('color','#3BB300');
+            $(this).css('padding-left','10px');
+            $(this).css('padding-right','10px');
+            $(this).css('padding-top','10px');
+            $(this).css('padding-bottom','10px');
+        }
+        else if ($(this).text() == "Yellow"){
+          $(this).css('width','40px');
+          $(this).css('margin','1% 42%');
+          $(this).css('height','40px');
+          $(this).css('float','left');
+          $(this).css('background-color','#FFB366');
+          $(this).css('border-radius','50px');
+          $(this).css('color','#FFB366');
+          $(this).css('padding-left','10px');
+          $(this).css('padding-right','10px');
+          $(this).css('padding-top','10px');
+          $(this).css('padding-bottom','10px');
+        }
+        else{
+          $(this).css('width','40px');
+          $(this).css('margin','1% 42%');
+          $(this).css('height','40px');
+          $(this).css('float','left');
+          $(this).css('background-color','#f06969');
+          $(this).css('border-radius','50px');
+          $(this).css('color','#f06969');
+          $(this).css('padding-left','10px');
+          $(this).css('padding-right','10px');
+          $(this).css('padding-top','10px');
+          $(this).css('padding-bottom','10px');
+          $(this).css('text-align','center');
+        }
+    });
+});
+</script>
+
+
+
+
+
+<div id = "main1">
+  <div class="maincontainer">
+	{% if user.is_authenticated and user.is_staff%}
+    <center><h2 class="text-weight-900" style="color: #00bceb;">Details Related to {{projectName}}</h2></center>
+    <div class="row base-margin-bottom">
+    <div class="col-8">
+        <div class="panel text-weight-900"><ul><h5 class="text-weight-700" style="color: #00bceb;">Executive Summary</h5></ul></div>
+        <div class="panel"><li>
+          {{summary}}
+        </li>
+      </div>
+      <!--<div class="panel text-weight-900"><ul><h5 class="text-weight-700" style="color: #00bceb;">General Comments</h5></ul></div>
+        <div class="panel"><li>
+          {{comments}}
+        </li>
+      </div> -->
+
+      <div class="panel "><ul><h5 class="text-weight-700" style="color: #00bceb;">Project Details</h5></ul></div>
+        <div class="panel "><li>
+          Associated ProjectId : <b>{{pID}}</b>
+        </li>
+        <li>
+          India NCE's: <b>{{nceIndia}}</b>
+        </li>
+        <li>
+          Other Region NCE's: <b>{{nceOther}}</b>
+        </li>
+        <li>
+          End Date: <b>{{endDate}}</b>
+        </li>
+        <li>
+          Technology: <b>{{techno}}</b>
+        </li>
+        <li>Delivery Status: <b>{{dStatus}}</b>
+        </li>
+        <li>Project Completion Level: <b>{{pCompletionLevel}}</b></li>
+        </li>
+        <li>Total NCE's (acc to CBU Tracker): <b>{{totalNCE}}</b>
+        </li>
+        <li>Average Project CBU (5 Weeks - FY20Q3_WK4-8): <b>{{averageCBU}}</b>
+        </li>
+        <li>Project Start Date: <b>{{pdInfo.startDate}}</b>
+        </li>
+        <li>Project End Date: <b></b>
+        </li>
+        <li>Total Number Of TCM's: <b>{{pdInfo.numberOfSitesPlanned}}</b>
+        </li>
+      </div>
+    </div>
+
+    <!--<div class="col-3">
+        <div class="panel">
+          <div class="col-3 col-lg-3 base-margin-bottom">
+        <div class="gauge gauge--large" data-percentage="{{pdInfo.completionStatus}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{pdInfo.completionStatus}}</div>
+            </div>
+        </div>
+        <div class="gauge__label">Completion Percentage</div>
+    </div>
+        </div>
+    </div>-->
+    
+      <div class="col-3 col-md-3 col-lg-2 text-center">
+
+
+      <div>
+        <h5 class="text-weight-700">Customer Sentiment</h5>
+      </div>
+    
+      {% if cVal > 65 %}
+      <div class="col-3 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--success" data-percentage="{{cVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{custSenti}}</div>
+            </div>
+        </div>
+        <!--<div class="gauge__label text-weight-600">Sentiment</div>-->
+    </div>
+    {% elif cVal > 50 %}
+    <div class="col-3 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--warning" data-percentage="{{cVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{custSenti}}</div>
+            </div>
+        </div>
+        <!--<div class="gauge__label text-weight-600">Sentiment</div>-->
+    </div>
+    {% else %}
+      <div class="col-3 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--danger" data-percentage="{{cVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{custSenti}}</div>
+            </div>
+        </div>
+        <!--<div class="gauge__label text-weight-600">Sentiment</div>-->
+    </div>
+    {% endif %}
+
+
+    
+    <h5 class="text-weight-700">Automation</h5>
+    {% if aVal > 65 %}
+    <div class="col-6 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--success" data-percentage="{{aVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{aStatus}}</div>
+            </div>
+        </div>
+        <!--<div class="text-weight-700"></div>-->
+    </div>
+    {% elif aVal > 50 %}
+        <div class="col-6 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--warning" data-percentage="{{aVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{aStatus}}</div>
+            </div>
+        </div>
+        <!--<div class="text-weight-700"></div>-->
+    </div>
+    {% else %}
+    <div class="col-6 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--danger" data-percentage="{{aVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{aStatus}}</div>
+            </div>
+        </div>
+        <!--<div class="text-weight-700"></div>-->
+    </div>
+
+    {% endif %}
+
+
+
+
+
+    <h5 class="text-weight-700">Schedule Status</h5>
+    {% if sVal > 65 %}
+    <div class="col-6 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--success" data-percentage="{{sVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{sStatus}}</div>
+            </div>
+        </div>
+        <!--<div class="text-weight-700"></div>-->
+    </div>
+    {% elif sVal > 50 %}
+        <div class="col-6 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--warning" data-percentage="{{sVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{sStatus}}</div>
+            </div>
+        </div>
+        <!--<div class="text-weight-700"></div>-->
+    </div>
+    {% else %}
+    <div class="col-6 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--danger" data-percentage="{{sVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{sStatus}}</div>
+            </div>
+        </div>
+        <!--<div class="text-weight-700"></div>-->
+    </div>
+
+    {% endif %}
+
+
+    </div>
+
+    <br>
+    <div class="col-3 col-md-3 col-lg-2 text-center base-margin-bottom">
+
+
+
+
+            <div>
+        <h5 class="text-weight-700">CBU Information %</h5>
+      </div>
+
+      
+      <div class="col-3 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="col-6 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--info" data-percentage="70">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{avgCBU}}</div>
+            </div>
+        </div>
+        <!--<div class="gauge__label text-weight-600">CBU Percent</div>-->
+    </div>
+      </div>
+
+
+      <h5 class="text-weight-700">Quality Status</h5>
+    {% if qVal > 65 %}
+    <div class="col-6 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--success" data-percentage="{{qVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{qStatus}}</div>
+            </div>
+        </div>
+        <!--<div class="text-weight-700"></div>-->
+    </div>
+    {% elif qVal > 50 %}
+        <div class="col-6 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--warning" data-percentage="{{qVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{qStatus}}</div>
+            </div>
+        </div>
+        <!--<div class="text-weight-700"></div>-->
+    </div>
+    {% else %}
+    <div class="col-6 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--danger" data-percentage="{{qVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{qStatus}}</div>
+            </div>
+        </div>
+        <!--<div class="text-weight-700"></div>-->
+    </div>
+
+    {% endif %}
+      
+
+      <div>
+        <h5 class="text-weight-700">Overall &nbsp; &nbsp; Status</h5>
+      </div>
+
+      {% if oVal > 65 %}
+      <div class="col-3 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--success" data-percentage="{{oVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{oStatus}}</div>
+            </div>
+        </div>
+        <!--<div class="gauge__label text-weight-600">Sentiment</div>-->
+    </div>
+    {% elif oVal > 50 %}
+
+    <div class="col-3 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--warning" data-percentage="{{oVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{oStatus}}</div>
+            </div>
+        </div>
+        <!--<div class="gauge__label text-weight-600">Sentiment</div>-->
+    </div>
+
+    {% else %}
+    <div class="col-3 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--danger" data-percentage="{{oVal}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{oStatus}}</div>
+            </div>
+        </div>
+        <!--<div class="gauge__label text-weight-600">Sentiment</div>-->
+    </div>
+    {% endif %}
+
+    
+
+     <!-- <div>
+        <h5 class="text-weight-700">CBU Info</h5>
+      </div>
+
+      
+      <div class="col-3 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="col-6 col-md-3 col-lg-2 text-center base-margin-bottom">
+        <div class="gauge gauge--info" data-percentage="70">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{avgCBU}}</div>
+            </div>
+        </div>
+        <div class="gauge__label text-weight-600">CBU Percent</div>
+    </div>
+      </div> -->
+
+
+
+    </div>
+
+
+    </div>
+  </div>
+
+
+    <div class="row base-margin-bottom">
+    <div class="col-4">
+        <div class="panel "><ul><h5 class="text-weight-700" style="color: #00bceb;">Project Information</h5>
+          <li>Project Id: <b>{{pID}}</b></li>
+          <li>Region: <b>{{region}}</b></li>
+          <li>Project Status: <b>{{pStatus}}</b> </li>
+          <li>Booking Year: <b>{{bookingYear}}</b></li>
+          <li>Execution FY: <b>{{eFY}}</b></li>
+          <li>Lead: <b>{{lead}}</b></li>
+          <li>Migration Track: <b>{{mTrack}}</b></li>
+        </ul>
+        </div>
+        
+    </div>
+    <div class="col-4">
+        <div class="panel"><ul><h5 class="text-weight-700" style="color: #00bceb;">Devices Information</h5>
+            <li>Operating System Version: <b>{{osVer}}</b></li>
+          <li># of Devices Planned for Migration: <b>{{projDetails.numOfDevicesPlannedForMigration}}</b></li>
+          <li># of Devices Migrated: <b>{{dMigrated}}</b></li>
+          <li># of Agreed Services: <b>{{projDetails.numberOfAgreedServices}}</b></li>
+          <li># of Services Up Post Migration: <b>{{projDetails.numberOfServicesUpPostMigration}}</b></li>
+        </ul></div>
+    </div>
+    <div class="col-4">
+        <div class="panel"><ul><h5 class="text-weight-700" style="color: #00bceb;">Migration Information</h5>
+          <li>Window Success Rate: <b>{{wSuccess}}</b></li>
+          <li># of Windows Executed: <b>{{wExecuted}}</b></li>
+          <li># of Windows Without Rollback: <b>{{projDetails.numOfWindowsExecutedWidOutRollback}}</b></li>
+          <li># of Sites Migrated: <b>{{projDetails.numOfSitesMigrated}}</b></li>
+        </ul></div>
+    </div>
+</div>
+<script>
+    window.onload = function(){
+
+      //drawSites({{numberOfSitesPlanned}},{{numOfSitesMigrated}});
+      drawSites({{dMigrated}},{{wExecuted}});
+      //drawSites2({{dMigrated}},{{wExecuted}});
+      //drawSites3({{dMigrated}},{{wExecuted}});
+      //drawDevices({{numOfDevicesPlannedForMigration}},{{numberOfDevicesMigrated}});
+      //drawWindows({{projDetails.numberOfWindowsPlanned}},{{projDetails.numberOfWindowsExecuted}},{{projDetails.numOfWindowsExecutedWidOutRollback}});
+      //lineChart({{xAxis|safe}},{{completedSites|safe}},{{windowSuccessRate|safe}});
+      //lineChart2({{xAxis|safe}},{{windowsPlanned|safe}},{{custSatisfaction|safe}},{{windowsCompleted|safe}});
+      //lineChart3({{statusLabels|safe}},{{statusList|safe}});
+  };
+  </script>
+
+
+<div class="row base-margin-bottom">
+
+    <div class="col-4">
+        <div class="panel "><canvas id="mySites" width="200" height="200"></canvas>
+        </div>
+    </div>
+
+    <div class="col-8">
+
+        <table id = "threeCols" class="table table--striped" aria-label="Default">
+            <header>
+            <tr colspan = "2"><h5 align="center" class="text-weight-900" style="color:#00bceb;">Status Summary</h5>
+
+            </tr>
+        </header>
+        <tr>
+            <header><th class="text-weight-900">Overall Status</th></header>
+            <td class = "y_n">{{s2}}</td>
+            
+        </tr>
+        <tr>
+            <header><th class="text-weight-900">Customer Sentiment</th></header>
+            <td class = "y_n">{{s1}}</td>
+            
+        </tr>
+        <tr>
+            <header><th class="text-weight-900">Schedule Status</th></header>
+            <td class = "y_n">{{s3}}</td>
+            
+        </tr>
+        <tr>
+            <header><th class="text-weight-900">Quality Status</th></header>
+            <td class = "y_n">{{s4}}</td>
+            
+        </tr>
+        <tr>
+            <header><th class="text-weight-900">Resource Status</th></header>
+            <td class = "y_n">{{s5}}</td>
+            
+        </tr>
+        <tr>
+            <header><th class="text-weight-900">Automation Status</th></header>
+            <td class = "y_n">{{s6}}</td>
+            
+        </tr>
+        <tr>
+            <header><th class="text-weight-900">CBU/CFU Status</th></header>
+            <td class = "y_n">{{s7}}</td>
+            
+        </tr>
+    </table>
+
+
+        <!--<div class="col-lg-6 col-xl-10">
+
+        <div class="alert alert--info">
+            
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="alert__message"><b>Status Information</b></div>
+            
+            
+        </div>
+    </div>
+    
+    <div class="col-lg-6 col-xl-10">
+        
+        <div class="alert alert--success">
+            
+            <div class="alert__message">Customer Sentiment: <b>{{s1}}</b></div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="alert__message">Overall Status: <b>{{s2}}</b></div>
+            
+        </div>
+
+        <div class="alert alert--warning-alt">
+            
+            <div class="alert__message">Schedule Status: <b>{{s3}}</b></div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="alert__message">Quality Status: <b>{{s4}}</b></div>
+        
+        </div>
+
+        <div class="alert alert--success">
+            
+            <div class="alert__message">Resources Status: <b>{{s5}}</b></div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="alert__message">Automation Status: <b>{{s6}}</b></div>
+          
+        </div>
+
+        <div class="alert alert--warning-alt">
+            
+            <div class="alert__message">CBU/CFU Status: <b>{{s7}}</b></div>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        </div>
+    </div> -->
+    
+    </div>
+
+    <!--<div class="col-4">
+        <div class="panel "><canvas id="myDevices" width="200" height="200"></canvas></div>
+        <div class="panel "><canvas id="mySites2" width="200" height="200"></canvas></div>
+    </div>
+    <div class="col-4">
+        <div class="panel "><canvas id="myWindows" width="200" height="200"></canvas></div>
+        <div class="panel "><canvas id="mySites3" width="200" height="200"></canvas></div>
+    </div>-->    
+</div>
+    
+ <!-- <div class="row base-margin-bottom">
+    <div class="col-6">
+        <div class="panel "><canvas id="myLine"></div>
+    </div>
+    <div class="col-6">
+        <div class="panel "><canvas id="myLine2"></div>
+    </div>
+</div> 
+
+<div class="row base-margin-bottom">
+    <div class="col-12">
+        <div class="panel "><canvas id="myLine3"></div>
+    </div>
+</div>-->
+
+    <div class="row base-margin-bottom">
+    <div class="col-12">
+        <div class="panel text-weight-900">For additional information or any concerns, please reach out to below POC's</div>
+    </div>
+</div>
+      <div class="row base-margin-bottom"></ol>
+    <div class="col-4">
+        <div class="panel "><ol><b>Contact Person</b>
+          <li>{{dManager}} (DM)</li>
+		  <!--
+          <li>{{pdInfo.projectManager}} (PM)</li>
+          <li>{{pdInfo.projectLead}} (Lead)</li> -->
+        </ol></div>
+    </div>
+    <div class="col-4">
+        <div class="panel"><ol><b>CEC</b>
+          <li>CSCO123456</li>
+		  <!--
+          <li>CSCO123457</li>
+          <li>CSCO123458</li> -->
+        </ol></div>
+    </div>
+    <div class="col-4">
+        <div class="panel "><ol><b>Phone Number</b>
+          <li>9900112299</li>
+		  <!--
+          <li>9900112299</li>
+          <li>9900112299</li> -->
+        </ol></div>
+    </div>
+{% else %}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+    <center> <h3 style="color:#f56642">Please Sign-In to view Project Details</h3></center>
+
+{% endif %}
+</div>
+<!--<div class="row base-margin-bottom">
+    <div class="col-12">
+      <div class="panel panel--dark text-weight-900">Monthly Details</div>
+      </div>
+    </div>
+     {% for ragdet in ragDetails %}
+    <div class="row base-margin-bottom">
+    <div class="col-6">
+        <div class="panel panel--dark"><ul>
+          <li>Month</li>
+          <li>Year</li>
+          <li>Windows Planned</li>
+          <li>Windows Completed</li>
+          <li>Open Issues</li>
+      </ul></div>
+    </div>
+    <div class="col-6">
+        <div class="panel panel--dark"><ul>
+          <li>{{ragdet.month}}</li>
+          <li>{{ragdet.year}}</li>
+          <li>{{ragdet.windowsPlanned}}</li>
+          <li>{{ragdet.windowsCompleted}}</li>
+          <li>{{ragdet.openIssues}}</li>
+        </ul></div>
+    </div>
+</div>
+    {% endfor %}
+    </div>
+    
+    </div>
+    <a href="/getProjAdditionalData/{{pdInfo.ProjectId}}">Click here for additional monthly information</a>-->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script type="text/javascript" src="{% static 'js/projAdditionalInfoCharts.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/lineChart.js' %}"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+  <!--<script type="text/javascript" src="chart.js"></script>
+  <script type="text/javascript" src="chartpie.js"></script>
+  <script type="text/javascript" src="chartline.js"></script>
+  <script type="text/javascript" src="{% static 'js/myPercent.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/Charts.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/speedRag.js' %}"></script>-->
+  <!--<script type="text/javascript" src="speedometer.js"></script>
+  <script type="text/javascript" src="speedometer.js"></script>-->
+
+  </body>
+</html>

@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Resources</title>
+	{% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>-->
+</head>
+<body class='cui' data-theme="dark">
+	<div class="row dbl-padding-bottom">
+        
+
+
+        <header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">Migration Analytical Portal</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <div class="header-item">
+                    <ul id="tabsheader" class="tabs">
+			{% if user.is_authenticated and user.is_staff%}
+			<li id="tabsheader-3" class="tab active">
+                            <a href="/#/">
+                                <div class="tab__heading">Skills Search</div>
+                            </a>
+                        </li>
+
+                        <li id="tabsheader-1" class="tab">
+                            <a href="/individualResources/">
+                                <div class="tab__heading">Back</div>
+                            </a>
+                        </li>
+                        
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/resources/">
+                                <div class="tab__heading">Resources Overview</div>
+                            </a>
+                        </li>
+                        
+                        <li id="tabsheader-4" class="tab">
+                            <a href="/mainpage/">
+                                <div class="tab__heading">Home</div>
+                            </a>
+                        </li>
+{% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+   </div>
+</header>
+</div>
+</div>
+
+    <div id="main">
+         <br>
+        <!--<div class="row base-margin-bottom">
+            <div class="col-12">
+                <div class="panel "><h5 class="text-weight-700"><center>Information related to Migration Team's Resources </center></h5></div>
+             </div>
+        </div>-->
+{% if user.is_authenticated and user.is_staff%}
+        <h3 class="text-center text-weight-700" class="text-default" style="color: #00bceb;">Employee Skills Search </h3>
+    
+    <div class="row base-margin-bottom">
+            <div class="col-12">
+                <div class="panel "><h5 class="text-weight-700"><center>Please select any of the Enterprise/SP skills check boxes along with skills level</center></h5></div>
+             </div>
+        </div>
+
+    <!--<div class="row base-margin-bottom">
+        
+
+            <div class="col-6">
+        
+                <div class="text-weight-700"><b style="color: #00bceb;"> &nbsp;Enterprise Skills keys: </b>entRouting; entSwitching; itilFoundation; entOperationsTools; entDesign; entDnaSDA; entMulticast; entDmvpn; wireless; entQos; virtualization; entSecurity; nexusHardware; vxlan; sdWan; dnac; entIpv6; entMeraki; sase; entSdn; entMultiCloud.</div>
+             </div>
+
+             <div class="col-6">
+                <div class="text-weight-700"><b style="color: #00bceb;">Service Provider Skills keys: </b>
+                spRoutingSwitching; spMplsL2L3Vpn; spMplste; spMulticastMultiCastVpn; spXrHardwarePlatformsOs; spAccessPlatforms; spSegmentRouting; spSegmentRoutingSdnBgpPcep; spSegmentRoutingTE; spEvpnPbBEvpn; ummt; spNso; bng; wanAutomation; nfv; lisp; spitFire; srv6; ron; tdmToIP; epnm; cnBGN;</div>
+             </div>
+        </div>
+        <div class="row base-margin-bottom">
+            <div class="col-12">
+                <div class="text-weight-700"><b class="text-weight-900" style="color: #00bceb;">Please Note: </b>Please select only using above mentioned keyWords, to select between Enterprise Technologies and/or SP Technologies.To select employees with multiple skills use "," to seperate each skill in the Skills Box. Use Skill Level drop down to select skills level.</div>
+                <br>
+                <div class="text-weight-900" style="color: #00bceb;">Sample => entRouting,entSwitching,spRoutingSwitching</div>
+                <br>
+             </div>
+        </div> -->
+
+
+    <form action="/skillsSearch/" method="POST">
+        
+        {% csrf_token %}
+        <table class="table table--striped">
+            <thead>
+                <th>
+                    <div class="text-weight-900" style="color: #00bceb;"> &nbsp;&nbsp; <h4 class="text-weight-700">Select one or more Enterprise Skills: </h4></div>
+                </th>
+                <th>
+                    <div class="text-weight-900" style="color: #00bceb;"> &nbsp;&nbsp; <h4 class="text-weight-700">Select one or more Service Provider Skills: </h4></div>
+                </th>
+            </thead>
+            <tr>
+                <td>
+
+        <div>
+            &nbsp;&nbsp;&nbsp;<input type="checkbox" id="entRouting" name="checks" value="entRouting">
+        <label for="entRouting"> Routing</label>
+        &nbsp;<input type="checkbox" id="entSwitching" name="checks" value="entSwitching">
+        <label for="entSwitching"> Switching</label>
+        &nbsp;<input type="checkbox" id="itilFoundation" name="checks" value="itilFoundation">
+        <label for="itilFoundation">ITIL Foundation</label>
+        &nbsp;<input type="checkbox" id="entOperationsTools" name="checks" value="entOperationsTools">
+        <label for="entOperationsTools">Operations Tools</label>
+        &nbsp;<input type="checkbox" id="entDesign" name="checks" value="entDesign">
+        <label for="entDesign">Design</label>
+    </div>
+    <div>
+            &nbsp;&nbsp;<input type="checkbox" id="entDnaSDA" name="checks" value="entDnaSDA">
+        <label for="entDnaSDA">DNA SDA</label>
+        &nbsp;<input type="checkbox" id="entMulticast" name="checks" value="entMulticast">
+        <label for="entMulticast">Multicast</label>
+        &nbsp;<input type="checkbox" id="entDmvpn" name="checks" value="entDmvpn">
+        <label for="entDmvpn">DMVPN</label>
+        &nbsp;<input type="checkbox" id="wireless" name="checks" value="wireless">
+        <label for="wireless">Wireless</label>
+        &nbsp;<input type="checkbox" id="entQos" name="checks" value="entQos">
+        <label for="entQos">QOS</label>
+        &nbsp;<input type="checkbox" id="virtualization" name="checks" value="virtualization">
+        <label for="virtualization">Virtualization</label>
+    </div>
+    <div>
+            &nbsp;&nbsp;<input type="checkbox" id="entSecurity" name="checks" value="entSecurity">
+        <label for="entSecurity">Security</label>
+        &nbsp;<input type="checkbox" id="nexusHardware" name="checks" value="nexusHardware">
+        <label for="nexusHardware">Nexus Hardware</label>
+        &nbsp;<input type="checkbox" id="vxlan" name="checks" value="vxlan">
+        <label for="vxlan">Vxlan</label>
+        &nbsp;<input type="checkbox" id="sdWan" name="checks" value="sdWan">
+        <label for="sdWan">Sd Wan</label>
+        &nbsp;<input type="checkbox" id="entQos" name="checks" value="entQos">
+        <label for="entQos">QOS</label>
+        &nbsp;<input type="checkbox" id="dnac" name="checks" value="dnac">
+        <label for="dnac">DNAC</label>
+        &nbsp;<input type="checkbox" id="entIpv6" name="checks" value="entIpv6">
+        <label for="entIpv6">IPv6</label>
+    </div>
+    <div>
+            &nbsp;&nbsp;<input type="checkbox" id="entMeraki" name="checks" value="entMeraki">
+        <label for="entMeraki"> Meraki</label>
+        &nbsp;<input type="checkbox" id="sase" name="checks" value="sase">
+        <label for="sase"> SASE</label>
+        &nbsp;<input type="checkbox" id="entSdn" name="checks" value="entSdn">
+        <label for="entSdn">SDN</label>
+        &nbsp;<input type="checkbox" id="entMultiCloud" name="checks" value="entMultiCloud">
+        <label for="entMultiCloud">MultiCloud</label>
+        
+    </div>
+    </td>
+
+
+
+        <td>
+
+        <div>
+            &nbsp;&nbsp;&nbsp;<input type="checkbox" id="spRoutingSwitching" name="checks" value="spRoutingSwitching">
+        <label for="spRoutingSwitching"> Routing Switching</label>
+        &nbsp;<input type="checkbox" id="spMplsL2L3Vpn" name="checks" value="spMplsL2L3Vpn">
+        <label for="spMplsL2L3Vpn"> MplsL2/L3Vpn</label>
+        &nbsp;<input type="checkbox" id="spMplste" name="checks" value="spMplste">
+        <label for="spMplste">Mpls TE</label>
+        &nbsp;<input type="checkbox" id="spMulticastMultiCastVpn" name="checks" value="spMulticastMultiCastVpn">
+        <label for="spMulticastMultiCastVpn">Multicast/MultiCastVpn</label>
+        &nbsp;<input type="checkbox" id="spXrHardwarePlatformsOs" name="checks" value="spXrHardwarePlatformsOs">
+        <label for="spXrHardwarePlatformsOs">XrHardware Platforms/OS </label>
+    </div>
+    <div>
+            &nbsp;&nbsp;<input type="checkbox" id="spAccessPlatforms" name="checks" value="spAccessPlatforms">
+        <label for="spAccessPlatforms">Access Platforms</label>
+        &nbsp;<input type="checkbox" id="spSegmentRouting" name="checks" value="spSegmentRouting">
+        <label for="spSegmentRouting">Segment Routing</label>
+        &nbsp;<input type="checkbox" id="spSegmentRoutingSdnBgpPcep" name="checks" value="spSegmentRoutingSdnBgpPcep">
+        <label for="spSegmentRoutingSdnBgpPcep">Segment Routing Sdn/Bgp/Pcep</label>
+        &nbsp;<input type="checkbox" id="spSegmentRoutingTE" name="checks" value="spSegmentRoutingTE">
+        <label for="spSegmentRoutingTE">Segment Routing TE</label>
+    </div>
+    <div>
+            &nbsp;&nbsp;<input type="checkbox" id="spEvpnPbBEvpn" name="checks" value="spEvpnPbBEvpn">
+        <label for="spEvpnPbBEvpn">Evpn Pb BE vpn</label>
+        &nbsp;<input type="checkbox" id="ummt" name="checks" value="ummt">
+        <label for="ummt">UMMT</label>
+        &nbsp;<input type="checkbox" id="spNso" name="checks" value="spNso">
+        <label for="spNso">NSO</label>
+        &nbsp;<input type="checkbox" id="bng" name="checks" value="bng">
+        <label for="bng">BNG</label>
+        &nbsp;<input type="checkbox" id="wanAutomation" name="checks" value="wanAutomation">
+        <label for="wanAutomation">Wan Automation</label>
+        &nbsp;<input type="checkbox" id="nfv" name="checks" value="nfv">
+        <label for="nfv">NFV</label>
+        &nbsp;<input type="checkbox" id="lisp" name="checks" value="lisp">
+        <label for="lisp">LISP</label>
+        &nbsp;<input type="checkbox" id="spitFire" name="checks" value="spitFire">
+        <label for="spitFire">SpitFire</label>
+        &nbsp;<input type="checkbox" id="srv6" name="checks" value="srv6">
+        <label for="srv6">SRV6</label>
+    </div>
+    <div>
+            &nbsp;&nbsp;<input type="checkbox" id="ron" name="checks" value="ron">
+        <label for="ron"> RON</label>
+        &nbsp;<input type="checkbox" id="tdmToIP" name="checks" value="tdmToIP">
+        <label for="tdmToIP"> TDM to IP</label>
+        &nbsp;<input type="checkbox" id="epnm" name="checks" value="epnm">
+        <label for="epnm">EPNM</label>
+        &nbsp;<input type="checkbox" id="cnBGN" name="checks" value="cnBGN">
+        <label for="cnBGN">CNBGN</label>
+        
+    </div>
+    </td>
+
+</tr>
+
+        
+            
+            <tr>
+                <!--<td>Enter Skills: </td>
+                <td><textarea rows="1" cols="50" name="skills" placeholder="Add Skills" style="color:black;"></textarea></td> -->
+                 <td><h5 class="text-weight-900" style="color: #00bceb;"> <center>Select Skills Level: </center></h5></td>
+                <td><select name="skillsLevel" id="project" style=" margin: 10px;
+    background: rgba(30,68,113, 0.9);
+    backgroundcolor: #00bceb;
+    text-shadow: 0 50px 0 rgba(30,68,113, 0.4); 
+    width: 400px;
+    height: 30px;">
+                <option>Skills Level</option>
+                <option value="1">Specialist</option>
+                <option value="2">SME</option>
+                <option value="3">Lead</option>
+            </select></td>
+            </tr>
+
+        </table>
+
+        <div class="col-12">
+          <center><button class="btn btn--primary" type="submit">Submit</button></center>
+      </div>
+
+    </form>
+    {% if entSpFlag %}
+
+
+    <div class="row base-margin-bottom">
+            <div class="col-12">
+                <div class="panel "><h5 class="text-weight-700"><center>Resources With Selected Skills</center></h5></div>
+             </div>
+        </div>
+
+
+    <div class="responsive-table">
+    <table class="table table--striped" aria-label="Striped table example" id="threeCols">
+          <thead>
+            <tr>
+              
+                <th><b style="color: #00bceb;">Name</b></th>
+                <th><b style="color: #00bceb;">CEC ID</b></th>
+                <th><b style="color: #00bceb;">Assigned Project</b></th>  
+                <th><b style="color: #00bceb;">Manager</b></th>
+                <th><b style="color: #00bceb;">ENT Or SP</b></th>
+                
+              
+            </tr>
+          </thead>
+          <tbody>
+            <!--{% for lrows in selectedValues %}
+            <tr>
+              
+                <td>{{lrows.0}}</td> 
+                <td><a href="/resources/details/{{lrows.4}}/{{lrows.5}}">{{lrows.4}}</a></td>
+                <td>{{lrows.1}}</td>
+                <td>{{lrows.2}}</td>
+                <td>{{lrows.3}}</td>
+                <td>{{lrows.5}}</td>
+                
+            </tr>
+            {% endfor %}-->
+
+            {% for cec,name,project,manager,entOrSp in zippedList %}
+            <tr>
+              
+                <td>{{name}}</td> 
+                <td><a href="/resources/details/{{cec}}">{{cec}}</a></td>
+                <td>{{project}}</td>
+                <td>{{manager}}</td>
+                <td>{{entOrSp}}</td>                
+            </tr>
+            {% endfor %}
+          </tbody>
+    </table>
+
+
+
+    {% endif %}
+   <!-- <div class="responsive-table">
+    <table class="table table--striped" aria-label="Striped table example" id="threeCols">
+          <thead>
+            <tr>
+              
+                <th><b>Name</b></th>
+                <th><b>CEC ID</b></th>
+                
+                <th><b>Employee ID</b></th>
+                <th><b>Project Role</b></th>
+                <th><b>Badge</b></th>
+                <th><b>Assigned Project</b></th>
+                <th><b>ENT or SP</b></th>
+                <th><b>Manager</b></th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            {% for lrows in resources %}
+            <tr>
+              
+                <td>{{lrows.name}}</td>
+                <td><a href="/resources/details/{{lrows.cecID}}/{{lrows.entOrSp}}">{{lrows.cecID}}</a></td>
+                <td>{{lrows.empId}}</td>
+                <td>{{lrows.projectRole}}</td>
+                <td>{{lrows.badge}}</td>
+                <td>{{lrows.assignedProject}}</td>
+                <td>{{lrows.entOrSp}}</td>
+                <td>{{lrows.manager}}</td>
+            </tr>
+            {% endfor %}
+          </tbody>
+    </table>-->
+
+
+    <script  src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="fancyTable.js"></script>       
+</div>
+
+{% else %}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+    <center> <h3 style="color:#f56642">Please Sign-In to view Project Details</h3></center>
+
+{% endif %}
+
+   <footer class="footer">
+    <div class="footer__links">
+        <ul class="list list--inline">
+            <li><a href="http://www.cisco.com/cisco/web/siteassets/contacts/index.html" target="_blank">Contacts</a></li>
+            <li><a href="https://secure.opinionlab.com/ccc01/o.asp?id=jBjOhqOJ" target="_blank">Feedback</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/help.html" target="_blank">Help</a></li>
+            <li><a href="http://www.cisco.com/c/en/us/about/sitemap.html" target="_blank">Site Map</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/terms-conditions.html" target="_blank">Terms & Conditions</a></li></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html" target="_blank">Privacy Statement</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html#cookies" target="_blank">Cookie Policy</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/trademarks.html" target="_blank">Trademarks</a></li>
+        </ul>
+    </div>
+</footer> 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script type="text/javascript" src="{% static 'js/barCharts.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/dougnut.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/fancyTable.js' %}"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+</body>
+</html>

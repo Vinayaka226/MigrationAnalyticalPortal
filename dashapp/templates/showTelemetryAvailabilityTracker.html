@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title> Availability Telemetery Information</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  </head>
+  <body class='cui' data-theme="dark">
+      <header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="#">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">Migration Analytical Portal</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <div class="header-item">
+                    <ul id="tabsheader" class="tabs">
+			<li id="tabsheader-1" class="tab active">
+                            <a href="#">
+                                <div class="tab__heading">Telemetery Info</div>
+                            </a>
+                        </li>
+
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/showAvailabilityTracker/">
+                                <div class="tab__heading">Back</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/mainpage/">
+                                <div class="tab__heading">Home</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+   </div>
+</header>
+
+<br>
+<br>
+  <br>
+  
+    <div>
+    <div class="row">
+
+        <br>
+
+    </div>
+
+
+	<div class="row base-margin-bottom">
+
+            
+                <div class="col-6">
+                    <div class="panel panel"><canvas id="managersResources"></canvas></div>
+                </div>
+                
+                <div class="col-6">
+                    <div class="panel panel"><canvas id="managersBw"></canvas></div>
+                </div>
+                
+
+          </div>
+
+
+    <div class="row base-margin-bottom">
+
+            
+                <div class="col-6">
+                    <div class="panel panel"><canvas id="managerReportees"></canvas></div>
+                </div>
+
+
+		
+		<div class="col-6">
+                <div class="panel">
+                    <ul >
+                        <LH class="text-weight-700 text-size-20" style="color:#00bceb;">Manager's Overall View
+                        </LH>
+                        
+                        <ul> <LH class="text-weight-700 text-size-16" style="color:#6abf4b;">Managers and Total Reportee's count below</LH></ul>
+                        {% for name,count in mgrRepzip %}
+                        <li class="text-size-14"><b style="color:#fbab18;">{{name}}</b> has <b style="color:#fbab18;">{{count}}</b> reportees</li>
+                        {% endfor %}
+                        <ul> <LH class="text-weight-700 text-size-16" style="color:#6abf4b;">{{month1}} and {{month2}}'s Bandwidth/Count Availability Info</LH>
+                        </ul>
+                    {% for mgr,bw1,bw2,c1,c2 in mgrBwCountZip %}
+                    <li class="text-size-12"> <b style="color:#fbab18;">{{mgr}}'s</b>  {{month1}}'s BW: <b style="color:#fbab18;">{{bw1}}%</b> & Resource available: <b style="color:#fbab18;">{{c1}}</b>
+                        <b style="color:#e2231a;">||</b> {{month2}}'s BW: <b style="color:#fbab18;">{{bw2}}</b> & Resource available: <b style="color:#fbab18;">{{c2}}</b>
+                    </li>
+                    {% endfor %}
+                    </ul>
+                    
+                    </ul>
+                </div>
+                
+            </div>
+
+          </div>
+    </div>  
+
+	<div class="row base-margin-bottom">
+        <div class="col-12">
+            <div class="panel">
+                <ul >
+                        <center><LH class="text-weight-900 text-size-20" style="color:#00bceb;">Manager's Overall View Continued...
+                        </LH></center>
+
+                        <ul> <LH class="text-weight-900 text-size-16" style="color:#6abf4b;">{{month3}}, {{month4}} and {{month5}}'s Bandwidth/Count Availability Info</LH></ul>
+                    {% for mgr,bw3,bw4,bw5,c3,c4,c5 in mgrBwCountZip2 %}
+                    <li class="text-size-14"> <b style="color:#fbab18;">{{mgr}}'s</b>  {{month3}}'s BW: <b style="color:#fbab18;">{{bw3}}%</b> & Resource available: <b style="color:#fbab18;">{{c3}}</b>
+                        <b style="color:#e2231a;">||</b> {{month4}}'s BW: <b style="color:#fbab18;">{{bw4}}</b> & Resource available: <b style="color:#fbab18;">{{c4}}</b>
+                        <b style="color:#e2231a;">||</b> {{month5}}'s BW: <b style="color:#fbab18;">{{bw5}}</b> & Resource available: <b style="color:#fbab18;">{{c5}}</b>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>  
+    {% if messages %}
+      <ul class="messages">
+      {% for message in messages %}
+      <li {% if message.tags %} class="{{ message.tags }}" >{% endif %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <h5 style="color: #CD5C5C"><b>Important: </b>{{ message }}</h5>
+        {% endif %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <h4 style="color: #048c66"> Successfully Uploaded! {{message}}</h4>
+        {% endif %}
+    <!--<h5 style="color: #CD5C5C" align="center"> {{message}}</h5>-->
+    
+    </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    <hr>
+    <script>
+          window.onload = function(){
+
+	 bwUnderManagersResources({{managers|safe}},{{c1|safe}},{{c2|safe}},{{c3|safe}},{{c4|safe}},{{c5|safe}},{{mon11|safe}},{{mon22|safe}},{{mon33|safe}},{{mon44|safe}},{{mon55|safe}});
+         bwUnderManagersBar({{managers|safe}},{{mon1|safe}},{{mon2|safe}},{{mon3|safe}},{{mon4|safe}},{{mon5|safe}},{{mon11|safe}},{{mon22|safe}},{{mon33|safe}},{{mon44|safe}},{{mon55|safe}});
+         drawManagersResourcesCount({{managers|safe}},{{reporteesCount|safe}});
+         
+            
+          };
+          </script>
+
+    
+    <script type="text/javascript" src="{% static 'js/fancyTable.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript" src="{% static 'js/barCharts.js' %}"></script>
+<!--<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script> -->
+    <footer class="footer">
+    <div class="footer__links">
+        <ul class="list list--inline">
+            <li><a href="http://www.cisco.com/cisco/web/siteassets/contacts/index.html" target="_blank">Contacts</a></li>
+            <li><a href="https://secure.opinionlab.com/ccc01/o.asp?id=jBjOhqOJ" target="_blank">Feedback</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/help.html" target="_blank">Help</a></li>
+            <li><a href="http://www.cisco.com/c/en/us/about/sitemap.html" target="_blank">Site Map</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/terms-conditions.html" target="_blank">Terms & Conditions</a></li></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html" target="_blank">Privacy Statement</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html#cookies" target="_blank">Cookie Policy</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/trademarks.html" target="_blank">Trademarks</a></li>
+        </ul>
+    </div>
+</footer>
+  </body>
+</html>

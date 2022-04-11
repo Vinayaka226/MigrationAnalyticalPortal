@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Red/Blue Emp Details</title>
+	{% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+</head>
+<body class='cui' data-theme="dark">
+	<header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">Managers Info</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <div class="header-item">
+                    <ul id="tabsheader" class="tabs">
+                        <li id="tabsheader-1" class="tab">
+                            <a tabindex="0" href="/redBlueResources/">
+                                <div class="tab__heading">Blue Badge </div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-2" class="tab">
+                            <a href="/redResources/">
+                                <div class="tab__heading">Red Badge</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab active">
+                            <a href="#">
+                                <div class="tab__heading">Managers</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/resources/">
+                                <div class="tab__heading">Resources Page</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/mainpage/">
+                                <div class="tab__heading">Home</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+   </div>
+</header>
+<br>
+<br>
+<br>
+<div>
+	<div class="maincontainer">
+		<div class="row base-margin-bottom">
+    		<div class="col-12">
+        		<div class="panel"><center><h5 class="text-weight-900">Migration Team's Managers Information</h5></center></div>
+   			 </div>
+		</div>
+		<div class="row base-margin-bottom">
+    		<div class="col-4">
+        		<div class="panel"><ul ><LH class="text-weight-700">Managers Overall View</LH>
+        			<li>Total Managers: <b>{{managerCount}}</b></li>
+        			<li>Total resources under them: <b>{{totalEmp}}</b></li>
+        			<li><ul> <LH class="text-weight-600">Managers Names:</LH>
+        			{% for manager, count,blue, red in zipManagerCount%}
+        			<li><b>{{manager}}</b> have <b>{{count}}</b> total Reportees. Out of them, <b>{{blue}}</b> are <b>Blue Badge</b> and <b>{{red}}</b> are <b>Red Badge</b> employees</li>
+        			{% endfor %}
+        			</ul></li>
+        			</ul>
+        		</div>
+        		
+    		</div>
+
+
+
+            <script>
+        window.onload = function(){
+
+        empUnderManagersBar({{manager|safe}},{{empCount|safe}},{{blueCount|safe}},{{redCount|safe}});
+        //blueWithoutProjects({{noProjDougnutLabels|safe}},{{noProjDougnutCount}});
+
+        };
+         </script>
+    		<div class="col-8">
+        		<div class="panel">
+                   <canvas id="managerReportees"></canvas>
+        	   </div>
+    		</div>
+	</div>
+	
+	<div class="row base-margin-bottom">
+    	<div class="col-6">
+        	<div class="panel">
+        		<canvas id="managerReportees"></canvas>
+        	</div>
+    	</div>
+    	<div class="col-6">
+        	<div class="panel">
+        		<canvas id="blueWithoutProjects"></canvas>
+        	</div>
+    	</div>
+	</div>
+
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript" src="{% static 'js/barCharts.js' %}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+</body>
+</html>

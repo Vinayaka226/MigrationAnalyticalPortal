@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Add Project Review Page</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  </head>
+  <body>
+
+  <nav class="navbar navbar-inverse" id="navmain">
+    <div class="navbar-header">
+      <!--<img src="cisco-white.png" alt="No Image" height="70" width="70">-->
+      <a class="navbar-brand" href="#">Customer Experience</a>
+    </div>
+    <div class="navbar-brand-header">
+        <h4>Add Project Review Details</h4>
+    </div>
+  </nav>
+
+  <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="http://10.65.88.196:8000/mainpage">Home</a>
+  </div>
+
+<!-- Use any element to open the sidenav -->
+<span style="font-size:20px;cursor:pointer;" onclick="openNav()">&#9776; open</span>
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "15%";
+  document.getElementById("main").style.marginLeft = "15%";
+  document.getElementById("navmain").style.marginLeft = "15%";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft = "10%";
+  document.getElementById("navmain").style.marginLeft = "0";
+}
+</script>
+
+<div id = "main">
+  <div class="maincontainer">
+    <br>
+    <form class="post-form" action="/insertProjectReview/{{projectName}}" method="POST">
+      {% csrf_token %}
+    <table class = "sixCols">
+      <tr>
+          <th colspan = "6" style = "text-align: center;font-size:25px"> Project Review Details form for {{projectName}}</th>
+      </tr>
+      <tr>
+        <td style = "width: 16%; font-weight: bold;">Project Name</td>
+        <td style = "width: 16%;"><input type="text" name="projectName" id = "projectName"/></td>
+        <td style = "width: 16%;font-weight: bold;">Project PID</td>
+        <td style = "width: 16%;"><input type="text" name="projectPID"/></td>
+        <td style = "width: 16%;font-weight: bold;">Deal value</td>
+        <td style = "width: 16%;"><input type="text" name="dealValue"/></td>
+      </tr>
+      <!--<tr class = "sixCols">-->
+      <tr>
+        <td style = "width: 16%;font-weight: bold;">CX DM Name</td>
+        <td style = "width: 16%;"><input type="text" name="cxDMName"/></td>
+        <td style = "width: 16%; font-weight: bold;">SDE Name</td>
+        <td style = "width: 16%;"><input type="text" name="SDEName"/></td>
+        <td style = "width: 16%; font-weight: bold;">Team Name</td>
+        <td style = "width: 16%;"><input type="text" name="teamName"/></td>
+      </tr>
+      <!--<tr class = "sixCols">-->
+      <tr>
+        <td style = "width: 16%; font-weight: bold;">Review Month</td>
+        <td style = "width: 16%;"><input type="month" name="reviewMonth"/></td>
+        <td style = "width: 16%;font-weight: bold;">Start Date</td>
+        <td style = "width: 16%;"><input type="date" name="startDate"/></td>
+        <td style = "width: 16%; font-weight: bold;">End Date</td>
+        <td style = "width: 16%;"><input type="date" name="endDate"/></td>
+      </tr>
+    </table>
+    <br>
+    <h3 style = "text-align: center;font-size:25px"><strong>Summary/Status</strong></h3>
+    <table id = "sixCols" style= "border: 10px solid #dddddd;">
+      <tr>
+        <td style = "font-weight: bold;">Executive Summary</td>
+        <td><textarea name="executiveSummary" rows="4" cols="120"></textarea></td>
+      </tr>
+      <tr>
+        <td style = "font-weight: bold;">Customer Sentiment</td>
+        <td class = "status"><select class="customerSentiment" name="customerSentiment" style = "width: 200px;
+        margin: 10px;">
+            <option value="Green">Green</option>
+            <option value="Amber">Amber</option>
+            <option value="Red">Red</option>
+        </select></td>
+      </tr>
+      <!--<tr>
+        <td style = "font-weight: bold;">Overall Status</td>
+        <td class = "overallStatus"><input type="text" name="overallStatus"/></td>
+      </tr>-->
+    </table>
+    <br>
+    <table id = "statustab" style= "border: 20px solid #dddddd;">
+      <tr>
+        <td style = "font-weight: bold; text-align: center;">Parameters</td>
+        <td style = "font-weight: bold;text-align: center;">Status</td>
+        <td style = "font-weight: bold; text-align: center;">Comments</td>
+      </tr>
+      <tr>
+        <td style = "font-weight: bold; text-align: center;">Schedule</td>
+        <td class = "scheduleStatus"><select class="scheduleStatus" name="scheduleStatus" style="width: 200px;
+        margin: 10px;">
+            <option value="Green">Green</option>
+            <option value="Amber">Amber</option>
+            <option value="Red">Red</option>
+        </select></td>
+        <td><textarea name="scheduleComments" rows="4" cols="80"></textarea></td>
+      </tr>
+      <tr>
+        <td style = "font-weight: bold; text-align: center;">Quality</td>
+        <td class = "qualityStatus">
+          <select class="qualityStatus" name="qualityStatus" style="width: 200px;
+          margin: 10px;">
+              <option value="Green">Green</option>
+              <option value="Amber">Amber</option>
+              <option value="Red">Red</option>
+          </select></td>
+        <td><textarea name="qualityComments" rows="4" cols="80"></textarea></td>
+      </tr>
+      <tr>
+        <td style = "font-weight: bold; text-align: center;">Resource</td>
+        <td class = "resourceStatus"><select class="resourceStatus" name="resourceStatus" style="width: 200px;
+        margin: 10px;">
+            <option value="Green">Green</option>
+            <option value="Amber">Amber</option>
+            <option value="Red">Red</option>
+        </select></td>
+        <td><textarea name="resourceComments" rows="4" cols="80"></textarea></td>
+      </tr>
+      <tr>
+        <td style = "font-weight: bold; text-align: center;">Automation</td>
+        <td class = "automationStatus"><select class="automationStatus" name="automationStatus" style="width: 200px;
+        margin: 10px;">
+            <option value="Green">Green</option>
+            <option value="Amber">Amber</option>
+            <option value="Red">Red</option>
+        </select></td>
+        <td><textarea name="automationComments" rows="4" cols="80"></textarea></td>
+      </tr>
+    </table>
+    <br>
+    <h3 style = "font-weight: bold;">Some additional Information</h3>
+    <table style= "border: 20px solid #dddddd;">
+      <tr>
+        <td style = "font-weight: bold; text-align: center;">Accomplishments</td>
+        <td><textarea name="accomplishments" rows="4" cols="120"></textarea></td>
+      </tr>
+      <tr>
+        <td style = "font-weight: bold; text-align: center;">Goals For Next month</td>
+        <td><textarea name="goalsForNextMonth" rows="4" cols="120"></textarea></td>
+      </tr>
+      <tr>
+        <td style = "font-weight: bold; text-align: center;">Risks,Impacts and Asks</td>
+        <td><textarea name="risksImpactAsks" rows="4" cols="120"></textarea></td>
+      </tr>
+    </table>
+    <br>
+    <div class="col-sm-6">
+      <button type="submit" class= "btn btn-primary"> Add</button>
+    </div>
+    </form>
+  </div>
+      <br>
+    </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  </body>
+</html>

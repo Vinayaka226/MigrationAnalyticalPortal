@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Dashboard Homepage</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  </head>
+  <body class="cui" data-theme="dark">
+<header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">Migration Dashboard Homepage</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <!--<div class="header-item">
+                    <ul id="tabsheader" class="tabs">
+                        <li id="tabsheader-1" class="tab active">
+                            <a tabindex="0">
+                                <div class="tab__heading">Tab 1</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-2" class="tab">
+                            <a tabindex="0">
+                                <div class="tab__heading">Tab 2</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a tabindex="0">
+                                <div class="tab__heading">Tab 3</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>-->
+                
+                {% if user.is_authenticated %}
+                  <a href="/account/logout" class="header-item">
+                      <span class="half-margin-right">Log Out</span>
+                      
+                  </a>
+                {% endif %}
+                
+            </div>
+        </div>
+   </div>
+</header>
+    
+    <div>
+
+    <div class="row dbl-padding-bottom">
+        <div class="col-lg-6 col-xl-4 base-padding-bottom">
+            <div class="subheader">Basic</div>
+            <nav class="sidebar" role="navigation">
+                <div class="sidebar__header">
+                    <div class="sidebar__header-title">Options</div>
+                </div>
+                {% if user.is_authenticated and user.is_staff%}
+                <ul>
+                    <!--<li><b>View Info on: </b></li>-->
+                    <li class="sidebar__item">
+                        <a href="/resources/">Resources</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="/projAutomation/">Automation (WIP)</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="/LLM/mainPage/">Knowledge Manager</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="/showAvailabilityTracker/">Availability Tracker</a>
+                    </li>
+                    <!--<li class="sidebar__item">
+                        <a>Accolades</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a>Charts</a>
+                    </li>-->
+                    {% if user.is_authenticated and user.is_superuser%}
+                    <li class="sidebar__item">
+                        <li><b>Upload Here: </b></li>
+                        <ul>
+                            <li><a href="/uploadProjectDetails/"> Project Details</a></li>
+                            <li><a href="/uploadAutomatedProjectDetails/"> Migration Master Details</a></li>
+                            <li><a href="/uploadAvailabilityTracker/">Availability Tracker</a></li>
+                            <li><a href="/uploadaMigrationTrainingDetails/">Trainings Tracker</a></li>
+                        </ul>
+                        
+                    </li>
+                    {% endif %}
+                </ul>
+                {% else %}
+                <li class="sidebar__item">
+                        <a href="/account/login">LogIn</a>
+                    </li>
+                {% endif %}
+            </nav>
+        </div>
+    </div>
+       
+   </div>
+<script>
+$(document).ready(function(){
+
+    $('#threeCols td.y_n').each(function(){
+        if ($(this).text() == "Green") {
+            $(this).css('width','40px');
+            $(this).css('margin','1% 42%');
+            $(this).css('height','40px');
+            $(this).css('float','left');
+            $(this).css('background-color','#3BB300');
+            $(this).css('border-radius','50px');
+            $(this).css('color','#3BB300');
+            $(this).css('padding-left','10px');
+            $(this).css('padding-right','10px');
+            $(this).css('padding-top','10px');
+            $(this).css('padding-bottom','10px');
+        }
+        else if ($(this).text() == "Amber"){
+          $(this).css('width','40px');
+          $(this).css('margin','1% 42%');
+          $(this).css('height','40px');
+          $(this).css('float','left');
+          $(this).css('background-color','#FFB366');
+          $(this).css('border-radius','50px');
+          $(this).css('color','#FFB366');
+          $(this).css('padding-left','10px');
+          $(this).css('padding-right','10px');
+          $(this).css('padding-top','10px');
+          $(this).css('padding-bottom','10px');
+        }
+        else{
+          $(this).css('width','40px');
+          $(this).css('margin','1% 42%');
+          $(this).css('height','40px');
+          $(this).css('float','left');
+          $(this).css('background-color','#e2231a');
+          $(this).css('border-radius','50px');
+          $(this).css('color','#FF8080');
+          $(this).css('padding-left','10px');
+          $(this).css('padding-right','10px');
+          $(this).css('padding-top','10px');
+          $(this).css('padding-bottom','10px');
+          $(this).css('text-align','center');
+        }
+    });
+});
+</script>
+
+<div id = "main1">
+    <!--<div class  = "container">
+        <div class="jumbotron">
+          <h3>Project Information</h3>
+          <p> This page give some general information about the current projects</p>-->
+          {% if user.is_authenticated and user.is_staff%}
+          <table id = "threeCols" class="table table--striped" aria-label="Default">
+            <thead>
+                <tr>
+              <header>
+                <th colspan="5"><h5 align="center" class="text-weight-900" style="color:#00bceb;">Migration Project Summary</h5></th>
+              </header>
+            </tr>
+            <tr>
+                <header>
+                <th class="text-weight-900">Project Name</th>
+                <th class="text-weight-900">Category (Ent/SP)</th>
+                <th class="text-weight-900">DM Name</th>
+                
+                <th class="text-weight-900">Deal Value (in $M)</th>
+                <!--<th class="text-weight-900">Update/Delete Entry</th> -->
+                <th class="text-weight-900">Status</th>
+              </header>
+            </tr>
+            </thead>
+            {% for dbirows in dbi %}
+            <tr>
+              <td><a href="/showprojectDetails/{{dbirows.projectName}}">{{dbirows.projectName}}</a></td>
+              <td>{{dbirows.category}}</td>
+              <td>{{dbirows.dmName}}</td>
+              
+              <td>{{dbirows.dealValue}}</td>
+             <!-- <td>
+                  <a href="/editDash/{{dbirows.projectName.projectName}}">Edit</a>
+                  <a href="/deleteDash/{{dbirows.projectName.projectName}}">Delete</a>
+              </td>-->
+              <td class = "y_n">{{dbirows.completionZone}}</td>
+                <!--<div class="container">
+  <div class="led-box" style="height: 30px;
+  width: 10%;
+  margin: 10px 0;
+  float: left;">
+    <div class="led-green" style = " margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #ABFF00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;"></div>
+  </div>
+</div>-->
+
+            </tr>
+            {% endfor %}
+          </table>
+
+          <script  src=
+"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
+        <script src=
+"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js">
+        </script>
+        <script src="fancyTable.js"></script>
+        <script type="text/javascript">
+                  
+            $(document).ready(function(){
+              
+                $("#threeCols").fancyTable({
+                   sortColumn:0,
+                   /* Setting pagination or enabling */
+                   pagination: true,
+                   perPage:7,
+                       globalSearch:true,
+                    /* Exclude 2nd column from global search.*/
+                   globalSearchExcludeColumns: [0],
+                   onInit:function(){                 
+                   /* On initialization of table */
+                                 console.log({ element:this });
+                                    },
+                   onUpdate:function(){
+                   /* On update like search and sort of table */                  
+                    console.log({ element:this });
+                   }
+                       });                            
+            });            
+        </script>
+          <br>
+          <!--<a href="/addDash">Add New Project</a>-->
+        <br>
+    <br>
+      <!--<div class="containerGraph">
+        <div class="row">-->
+          <script>
+          window.onload = function(){
+            console.log("Here");
+            drawCat({{entCount}},{{spCount}});
+            drawHealth({{greenCount}},{{amberCount}},{{redCount}});
+            drawTeamStrength({{newCount}},{{completedCount}},{{currentCount}});
+          };
+          </script>
+
+
+
+          <div class="row base-margin-bottom">
+
+            <div class="row base-margin-bottom">
+                <div class="col-6">
+                    <div class="panel panel"><canvas id="myChart"></canvas></div>
+                </div>
+            <div class="col-6">
+                <div class="panel "><canvas id="myChartPie" ></canvas></div>
+            </div>
+            <div class="col-6">
+                <div class="panel "></div>
+            </div>
+        </div>
+
+          </div>
+
+         <div class="row base-margin-bottom">
+
+                <div class="col-3">
+                <div class="panel "><canvas id="teamStrength"></canvas></div>
+            </div>
+
+          </div>
+
+         <!-- <div class="col-xs-4"></div>
+          <div class="col-xs-4"><canvas id="myChartPie" style = "height: 400px width: 400px;"></canvas></div>
+           <div class="col-xs-4">
+            </div>
+        </div>-->
+      </div>
+      <br>
+    </div>
+    {% else %}
+    <center> <h3 style="color:#f56642">Please Sign-In to view Project Details</h3></center>
+    {% endif %}
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script type="text/javascript" src="{% static 'js/Charts.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/ChartsPie.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/teamStrengthpie.js' %}"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+  <script src="node_modules/chart.js/Chart.min.js"></script>
+  <script type="text/javascript" src="{% static 'js/fancyTable.js' %}"></script>
+<script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script>
+  <footer class="footer">
+    <div class="footer__links">
+        <ul class="list list--inline">
+            <li><a href="http://www.cisco.com/cisco/web/siteassets/contacts/index.html" target="_blank">Contacts</a></li>
+            <li><a href="https://secure.opinionlab.com/ccc01/o.asp?id=jBjOhqOJ" target="_blank">Feedback</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/help.html" target="_blank">Help</a></li>
+            <li><a href="http://www.cisco.com/c/en/us/about/sitemap.html" target="_blank">Site Map</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/terms-conditions.html" target="_blank">Terms & Conditions</a></li></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html" target="_blank">Privacy Statement</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html#cookies" target="_blank">Cookie Policy</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/trademarks.html" target="_blank">Trademarks</a></li>
+        </ul>
+    </div>
+</footer>
+
+  </body>
+</html>

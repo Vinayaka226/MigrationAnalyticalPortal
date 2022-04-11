@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Resources</title>
+	{% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>-->
+</head>
+<body class='cui' data-theme="dark">
+	<div class="row dbl-padding-bottom">
+        
+
+
+        <header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="#">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">Migration Analytical Portal</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <div class="header-item">
+		
+                    <ul id="tabsheader" class="tabs">
+{% if user.is_authenticated and user.is_staff%}
+                        <li id="tabsheader-1" class="tab active">
+                            <a tabindex="0">
+                                <div class="tab__heading">Resources Overview</div>
+                            </a>
+                        </li>
+			
+			<li id="tabsheader-3" class="tab">
+                            <a href="/mainpage/">
+                                <div class="tab__heading">Back</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-2" class="tab">
+                            <a href="/individualResources/">
+                                <div class="tab__heading">Resources Details</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/account/logout">
+                                <div class="tab__heading">Logout</div>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+   </div>
+</header>
+
+
+
+
+
+       <!-- <div class="col-lg-6 col-xl-4 base-padding-bottom">
+            <div class="subheader">Resources</div>
+            <nav class="sidebar sidebar--primary" role="navigation">
+                <div class="sidebar__header">
+                    <div class="sidebar__header-title">Resources Options</div>
+                </div>
+                <ul>
+                    <li class="sidebar__item">
+                        <a href="/resources/">Resources</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="/projAutomation/">Automation</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a>Knowledge Base</a>
+                    </li>
+                   <li class="sidebar__item">
+                        <a>Accolades</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a>Charts</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a href="/mainpage/">Home Page</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
+    <div> -->
+
+
+        </div>
+    </div>
+    
+
+	<script>
+		//google.charts.load('current', {'packages':['corechart']});
+	  //google.charts.setOnLoadCallback(barChart2);
+
+	 // barChart2({{nestedData}});
+    window.onload = function(){
+
+                      //projectsBar({{projects|safe}},{{resourceCount|safe}});
+      assignedVsNotAssignedToProjects({{otherCertsLab|safe}},{{otherCertCoun|safe}})
+      redBlue({{count|safe}});
+      //technoDougnut({{entSp|safe}},{{spEntCounts|safe}});
+                     //certsBar({{certificates|safe}},{{certiCount|safe}});
+      certsDougnut({{ccieLabels|safe}},{{ccieCounts|safe}});
+      drawManagersResourcesCount({{managersList|safe}},{{empCount|safe}});
+
+  };
+  </script>
+    <div id="maincontainer">
+{% if user.is_authenticated and user.is_staff%}
+   <!-- <div class="container-fluid">-->
+         <br>
+        <div class="row base-margin-bottom">
+            <div class="col-12">
+                <div class="panel "><h4 class="text-weight-900" style="color:#00bceb;"><center>Information related to Migration Team Resources </center></h4></div>
+             </div>
+        </div>
+    </div>
+
+  	<div class="row base-margin-bottom">
+        <div class="col-6">
+            <div class="panel text-weight-600"> <!--<a href="/redBlueResources/"> -->
+            <canvas id="redBlueDougnut" height="250" width="600"></canvas>
+             <!--</a> -->
+        </div>
+    </div>
+    <div class="col-6">
+            <!--<a href="/projInfo/"> </a> -->
+            <div class="panel text-weight-600">
+        	<!--<canvas id="projectsBarGraph" height="250" width="600"></canvas>-->
+            <canvas id="assignedVsNotAssignedToProjects" height="250" width="600"></canvas>
+        
+        </div>
+    </div>
+</div>
+	
+	<div class="row base-margin-bottom">
+        <div class="col-6">
+            <div class="panel">
+                <br>
+        	   <!--<a href="/entTechnologies/"> -->
+        	   <canvas id="managerReportees"height="250" width="600"></canvas>
+            <!--</a> -->
+        </div>
+        </div>
+   
+    <div class="col-6">
+        <div class="panel">
+        <!--<a href="/individualResources/"> -->
+        <canvas id="certiCount" height="250" width="600"></canvas>
+       <!-- </a> -->
+        </div>
+    </div>
+
+    </div>
+
+
+</div>
+{% else %}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+<br>
+    <center> <h3 style="color:#f56642">Please Sign-In to view Project Details</h3></center>
+
+{% endif %}
+
+   <footer class="footer">
+    <div class="footer__links">
+        <ul class="list list--inline">
+            <li><a href="http://www.cisco.com/cisco/web/siteassets/contacts/index.html" target="_blank">Contacts</a></li>
+            <li><a href="https://secure.opinionlab.com/ccc01/o.asp?id=jBjOhqOJ" target="_blank">Feedback</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/help.html" target="_blank">Help</a></li>
+            <li><a href="http://www.cisco.com/c/en/us/about/sitemap.html" target="_blank">Site Map</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/terms-conditions.html" target="_blank">Terms & Conditions</a></li></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html" target="_blank">Privacy Statement</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html#cookies" target="_blank">Cookie Policy</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/trademarks.html" target="_blank">Trademarks</a></li>
+        </ul>
+    </div>
+</footer> 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script type="text/javascript" src="{% static 'js/barCharts.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/dougnut.js' %}"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+</body>
+</html>

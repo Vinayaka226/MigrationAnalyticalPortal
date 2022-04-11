@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>LLM Portal</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  </head>
+  <body class="cui" data-theme="dark">
+
+    <div class="subheader">Centered</div>
+    <header class="header">
+      <div class="container">
+          <div class="header-panels">
+              <div class="header-panel">
+                 <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                     <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                  </a>
+                 <div class="header__title">My Lessons</div>
+             </div>
+              <div class="header-panel header-panel--center">
+                  <div class="header-item">
+                      <ul id="tabsheader" class="tabs">
+                          <li id="tabsheader-1" class="tab">
+                              <a href="/LLM/mainPage" tabindex="0">
+                                  <div class="tab__heading">Home</div>
+                              </a>
+                          </li>
+                          <li id="tabsheader-3" class="tab active">
+                              <a href=# tabindex="0">
+                                  <div class="tab__heading">My Lessons</div>
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="header-panel header-panel--right">
+                  <a href="/account/logout" class="header-item">
+                      <span class="half-margin-right">Log Out</span>
+                      
+                  </a>
+              </div>     
+         </div>
+      </div>
+    </header>
+    <br>
+    <br>
+    <br>
+
+
+<div id = "main">
+  <div id = "search"></div>
+  <div id = 'filters'></div>
+            {% if messages %}
+            {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <ul>
+              <li>
+        <h4 style="color: #048c66">Lesson Successfully Added with ID: {{ message }}</h4>
+      </li>
+      </ul>
+        {% endif %}
+        {% endfor %}
+             {% endif %}
+            <div class="panel panel panel--bordered">
+              <span class="subheader">Hello<b> {{username}} </b>, Total lessons contributed are: <b>{{lessonCount}}</b></span>
+            </div>
+
+        <div class="responsive-table">
+          <table class="table table--striped" aria-label="Striped table example">
+           <!-- <tr>
+              <header>
+                <th colspan="8"><h3 align="center">Lessons Summary</h3></th>
+              </header>
+            </tr>-->
+            <thead>
+            <tr>
+             <!-- <header> -->
+                <th>Issue ID</th>
+                <th>Issue Title</th>
+                <th>Project</th>
+                <th>Region</th>
+                <th>Functional Block</th>
+                <th>Activity Type</th>
+                <th>Date</th>
+                <th>Modify</th>
+              <!--</header> -->
+            </tr>
+            </thead>
+            <tbody>
+            {% for lrows in userLesson %}
+            <tr>
+              <!--<td><a href="/showprojectDetails/{{dbirows.projectName}}">{{lrows.Description}}</a></td>-->
+              <td><a href="/LLM/showDetails/{{lrows.IssueID.IssueID}}">{{lrows.IssueID.IssueID}}</td>
+              <td>{{lrows.IssueID.IssueTitle}}</td>
+              <td>{{lrows.project.project_Name}}</td>
+              <td>{{lrows.IssueID.Region}}</td>
+              <td>{{lrows.IssueID.FunctionalBlock}}</td>
+              <td>{{lrows.Activity_Type}}</td>
+              <td>{{lrows.Date_of_Migration}}</td>
+              <td><a href="/LLM/editLesson/{{lrows.IssueID.IssueID}}/{{firstName}}">edit</a>
+                <!--/<a href="/LLM/delete/{{lrows.IssueID.IssueID}}">delete</a>--></td>
+             <!-- <td class = "y_n">{{dbirows.completionZone}}</td> 
+              <td>
+                  <a href="/editDash/{{dbirows.projectName}}"> Edit Entry</a>
+                  <a href="/deleteDash/{{dbirows.projectName}}"> Delete Entry</a>
+              </td>-->
+            </tr>
+            {% endfor %}
+            </tbody>
+            </table>
+          </table>
+          <br>
+    </div>
+    <script  src=
+"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
+        <script src=
+"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js">
+        </script>
+        <script src="fancyTable.js"></script>
+        <script type="text/javascript">
+                 
+            $(document).ready(function(){
+                 pageVal = 0;
+                if({{lessonCount}} < 5){
+                      pageVal ={{lessonCount}};
+                   }
+                   else{
+                      pageVal = 5;
+                   }
+                $("#threeCols").fancyTable({
+                   sortColumn:0,
+                   /* Setting pagination or enabling */
+                   pagination: true,
+                   perPage : pageVal,
+                   
+                       globalSearch:true,
+                    /* Exclude 2nd column from global search.*/
+                   globalSearchExcludeColumns: [2],
+                   onInit:function(){                 
+                   /* On initialization of table */
+                                console.log({ element:this });
+                                    },
+                   onUpdate:function(){
+                   /* On update like search and sort of table */                  
+                    console.log({ element:this });
+                   }
+                       });                            
+            });            
+        </script>
+    <script type="text/javascript" src="{% static 'js/fancyTable.js' %}"></script>
+    <footer class="footer">
+      <div class="footer__links">
+          <ul class="list list--inline">
+              <li><a href="http://www.cisco.com/cisco/web/siteassets/contacts/index.html" target="_blank">Contacts</a></li>
+              <li><a href="https://secure.opinionlab.com/ccc01/o.asp?id=jBjOhqOJ" target="_blank">Feedback</a></li>
+              <li><a href="https://www.cisco.com/c/en/us/about/help.html" target="_blank">Help</a></li>
+              <li><a href="http://www.cisco.com/c/en/us/about/sitemap.html" target="_blank">Site Map</a></li>
+              <li><a href="https://www.cisco.com/c/en/us/about/legal/terms-conditions.html" target="_blank">Terms & Conditions</a></li></li>
+              <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html" target="_blank">Privacy Statement</a></li>
+              <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html#cookies" target="_blank">Cookie Policy</a></li>
+              <li><a href="https://www.cisco.com/c/en/us/about/legal/trademarks.html" target="_blank">Trademarks</a></li>
+          </ul>
+      </div>
+    </footer>
+  </body>
+</html>

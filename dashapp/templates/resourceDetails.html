@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Resource Details</title>
+	{% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+    <!--<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>-->
+</head>
+<body class='cui' data-theme="dark">
+	<div class="row dbl-padding-bottom">
+        
+
+
+        <header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="#">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">Migration Analytical Portal</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <div class="header-item">
+                    <ul id="tabsheader" class="tabs">
+                        <li id="tabsheader-1" class="tab active">
+                            <a tabindex="0">
+                                <div class="tab__heading">Resource Details</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-4" class="tab">
+                            <a href="/individualResources/">
+                                <div class="tab__heading">Back</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-2" class="tab">
+                            <a href="/resources/">
+                                <div class="tab__heading">Resources Overview</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/mainpage/">
+                                <div class="tab__heading">Home</div>
+                            </a>
+                        </li>
+			<li id="tabsheader-3" class="tab">
+                            <a href="/account/logout">
+                                <div class="tab__heading">Logout</div>
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+   </div>
+</header>
+</div>
+</div>
+    <div id="main">
+         <br>
+        <!--<div class="row base-margin-bottom">
+            <div class="col-12">
+                <div class="panel "><h5 class="text-weight-700"><center>Information related to Migration Team's Resources </center></h5></div>
+             </div>
+        </div>-->
+        <h3 class="text-center" class="text-default"  style="color:#00bceb;">Information related to <b>{{name}}</b> </h3>
+    
+        <script>
+             window.onload = function(){
+
+      individualCertsInfo({{certLabel|safe}},{{certValue|safe}});
+      individualSkillInfo({{skillsLabel|safe}},{{skillsList|safe}});
+      //individualSkillInfoSP({{skillsLabel|safe}},{{skillsList|safe}});
+      //individualSpInfo({{skillslabelSp|safe}},{{skillsList|safe}});
+
+  };
+        </script>
+
+        <div class="row base-margin-bottom">
+        <div class="col-6">
+            <div class="panel">
+                <h5 class="text-weight-900" style="color:#00bceb;">Certification Info</h5>
+                <table class="table table--striped" aria-label="Striped table example" id="threeCols">
+                    <thead>
+                    <tr>
+              
+                <th><b>Devnet</b></th>
+                <th><b>Devnet Date</b></th>
+                <th><b>Specialist Ent SD Wan</b></th>
+                <th><b>Specialist Ent SD Wan Date</b></th>
+            </tr>
+            </thead>
+            <tr>
+                <td>{{devnet}}</td>
+                <td>{{devnetDate}}</td>
+                <td>{{specia}}</td>
+                <td>{{speciaDate}}</td>
+            </tr>
+          
+                </table>
+               <br>
+                   
+                   <h5 class="text-weight-900" style="color:#00bceb;">Competitive Platforms Skills Info</h5>
+                <table class="table table--striped" aria-label="Striped table example" id="threeCols">
+                    {% for comp,skills in compPlatInfo%}
+                    <tr>
+                    <th><b>{{comp}}:</b></th>
+                    <td></td>
+                    <td>{{skills}}</td>
+                    </tr>
+            
+            {% endfor %}
+          
+                </table>             
+               
+               
+            </div>
+        </div>
+   
+    <div class="col-6">
+        <div class="panel">
+        
+        <div>
+            <ul>
+                <LH><h5 class="text-weight-700" style="color:#fbab18;">Basic information on <b>{{name}}</b></h5></LH>
+                <li>Reports to: <b style="color:#fbab18;">{{manager}}</b></li>
+                <li>Current project: <b style="color:#fbab18;">{{project}}</b></li>
+                <li>Cisco or Partner: <b style="color:#fbab18;">{{badge}}</b></li>
+                <li>Role in current project: <b style="color:#fbab18;">{{role}}</b></li>
+                <li>Inclined towards: <b style="color:#fbab18;">{{incli}} technology</b> </li>
+            </ul>
+        </div>
+
+
+
+        <h5 class="text-weight-900" style="color:#00bceb;">Soft Skills Info</h5>
+                <table class="table table--striped" aria-label="Striped table example" id="threeCols">
+                    {% for soft,skills in softInfo%}
+                    <tr>
+                    <th><b>{{soft}}:</b></th>
+                    <td>{{skills}}</td>
+                    </tr>
+            
+            {% endfor %}
+          
+                </table>
+
+        
+        </div>
+    </div>
+
+    </div>
+
+
+
+    <div class="row base-margin-bottom">
+        <div class="col-6">
+            <h5 class="text-weight-900" style="color:#00bceb;">Enterprise Skills Info Below</h5>
+            <table class="table table--striped" aria-label="Striped table example" id="threeCols">
+                {% for ent,skills in entInfo %}
+                <tr>
+                <th><b>{{ent}}: </b></th>
+                <td>&nbsp;</td>
+                <td>{{skills}}</td>
+             
+            </tr>
+            {% endfor %}
+                
+            </table>
+        </div>
+
+        <div class="col-6">
+            <h5 class="text-weight-900" style="color:#00bceb;">SP Skills Info Below</h5>
+            <table class="table table--striped" aria-label="Striped table example" id="threeCols">
+                {% for sp,skills in spInfo %}
+                <tr>
+                <th><b>{{sp}}: </b></th>
+                <td>&nbsp;</td>
+                <td>{{skills}}</td>
+             
+            </tr>
+            {% endfor %}
+                
+            </table>
+        </div>
+
+    </div>
+
+
+
+    <div class="row base-margin-bottom">
+        <div class="col-6">
+            <h5 class="text-weight-900" style="color:#00bceb;">Migration Lifecycle Skills Below</h5>
+            <table class="table table--striped" aria-label="Striped table example" id="threeCols">
+                {% for mig,skills in migInfo %}
+                <tr>
+                <th><b>{{mig}}: </b></th>
+                <td></td>
+                <td>{{skills}}</td>
+             
+            </tr>
+            {% endfor %}
+                
+            </table>
+        </div>
+
+        <div class="col-6">
+            <h5 class="text-weight-900" style="color:#00bceb;">CCIE Certification Info Below</h5>
+            <table class="table table--striped" aria-label="Striped table example" id="threeCols">
+                {% for ie,skills in ccieInfo %}
+                <tr>
+                <th><b>{{ie}}: </b></th>
+                <td>&nbsp;</td>
+                <td>{{skills}}</td>
+             
+            </tr>
+            {% endfor %}
+                
+            </table>
+
+            <h5 class="text-weight-900" style="color:#00bceb;">Scripting Skills Info Below</h5>
+            <table class="table table--striped" aria-label="Striped table example" id="threeCols">
+                {% for sc,skills in scriptInfo %}
+                <tr>
+                <th><b>{{sc}}: </b></th>
+                <td>&nbsp;</td>
+                <td>{{skills}}</td>
+             
+            </tr>
+            {% endfor %}
+                
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+    <br>
+    <br>
+
+    
+    <div class="row base-margin-bottom">
+            <div class="col-12">
+                <div class="panel ">
+                   <canvas id="individualSkills" height="100"></canvas>
+                </div>
+             </div>
+    </div>
+    
+</div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script type="text/javascript" src="{% static 'js/lineChart.js' %}"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+</div>
+
+
+   <footer class="footer">
+    <div class="footer__links">
+        <ul class="list list--inline">
+            <li><a href="http://www.cisco.com/cisco/web/siteassets/contacts/index.html" target="_blank">Contacts</a></li>
+            <li><a href="https://secure.opinionlab.com/ccc01/o.asp?id=jBjOhqOJ" target="_blank">Feedback</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/help.html" target="_blank">Help</a></li>
+            <li><a href="http://www.cisco.com/c/en/us/about/sitemap.html" target="_blank">Site Map</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/terms-conditions.html" target="_blank">Terms & Conditions</a></li></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html" target="_blank">Privacy Statement</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html#cookies" target="_blank">Cookie Policy</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/trademarks.html" target="_blank">Trademarks</a></li>
+        </ul>
+    </div>
+</footer> 
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script type="text/javascript" src="{% static 'js/barCharts.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/dougnut.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/fancyTable.js' %}"></script>
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+</body>
+</html>

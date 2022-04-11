@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Add Project</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!--<link rel="stylesheet" href="{% static 'css/mystyle.css' %}">-->
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  </head>
+  <body class="cui"data-theme="dark">
+    <header class="header">
+      <div class="container">
+          <div class="header-panels">
+              <div class="header-panel">
+                  <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                      <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                  </a>
+              <div class="header__title">KMT Registeration</div>
+              </div>
+          </div>
+      </div>
+    </header>
+    <br>
+    <br>
+    <br>
+    <div>
+	  </div>
+    <form class="post-form" action="register" method="post" >
+      {% csrf_token %}
+      <div class="container">
+        <br>
+        <table border="1" id = "threeCols" class="table table--striped" aria-label="Striped table example">
+            <tr>
+              <header>
+                <th colspan="4"><h3 align="center">Enter Your Details</h3></th>
+              </header>
+            </tr>
+            <tr>
+            	<td>
+          			<label class = "col-form-label">First name: </label>
+            	</td>
+            	<td>
+            		<input type="text" name="first_name" placeholder="First Name" style="color:black;"/>	
+            	</td>
+            	<td>
+          			<label class = "col-form-label">Last Name: </label>
+            	</td>
+            	<td>
+            		<input type="text" name="last_name" placeholder="Last Name" style="color:black;"/>
+            	</td>
+            </tr>
+            <tr>
+            	<td>
+          			<label class = "col-form-label">User Name:</label>
+            	</td>
+            	<td>
+            		<input type="text" name="username" placeholder="User Name" style="color:black;"/>
+            	</td>
+            	<td>
+          			<label class = "col-form-label">Email Address:</label>
+            	</td>
+            	<td>
+            		<input type="email" name="email" placeholder="Email Address" style="color:black;"/>
+            	</td>
+            </tr>
+            <tr>
+            	<td>
+          			<label class = "col-form-label">Password:</label>
+            	</td>
+            	<td>
+            		<input type="password" name="password1" placeholder="Password1" style="color:black;"/>
+            	</td>
+            	<td>
+          			<label class = "col-form-label">Confirm Password:</label>
+            	</td>
+            	<td>
+            		<input type="password" name="password2" placeholder="Password2" style="color:black;"/>
+            	</td>
+            </tr>
+            <tr>
+                <td colspan="4"><h4 align="center"><button type="submit" class= "btn btn-primary"> Register</button></h4></td>    
+            </tr>
+     	</table>
+      {% if messages %}
+      <ul class="messages">
+     	{% for message in messages %}
+      <li {% if message.tags %} class="{{ message.tags }}" >{% endif %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <h5 style="color: #CD5C5C"><b>Important: </b>{{ message }} Please try again!</h5>
+        {% endif %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <h4 style="color: #048c66"> Successfully Registered!</h4>
+        <h5 style="color: #048c66"><b>Please Note: </b>{{ message }} are the Admins. Please contact them to activate your Account</h5>
+        {% endif %}
+		<!--<h5 style="color: #CD5C5C" align="center"> {{message}}</h5>-->
+    
+    </li>
+		{% endfor %}
+    </ul>
+    {% endif %}
+    <!--<a href="/LLM/mainPage">Home Page -->
+      </div>
+    </form>
+  </body>
+</html>

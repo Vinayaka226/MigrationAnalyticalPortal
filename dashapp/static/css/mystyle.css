@@ -1,0 +1,199 @@
+.navnew {
+  padding-left: 0;
+  margin-bottom: 0;
+  list-style: none;
+}
+.navbar-navnew {
+  float:right;
+  margin: 7.5px -15px;
+  margin: 0;
+}
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+ // border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+tr:nth-child(even) {
+ // background-color: #dddddd;
+}
+.containernew{
+	height: 100%;
+	background: #f1f1f1;
+}
+
+.containerGraph {
+  padding-right: 1%;
+  padding-left: 1%;
+  margin-right: auto;
+  margin-left: auto;
+}
+/* The side navigation menu */
+.sidenav {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0; /* Stay at the top */
+  left: 0;
+  background-color: #222; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
+}
+
+/* The navigation menu links */
+.sidenav a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 12px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s;
+  padding: 5px;
+  margin-left: 14%;
+  border-radius: 6px;
+  padding-right: 1px;
+  padding-left: 15px;
+  padding-top: 2px;
+  margin-right: 2px;
+  background-color: #f2f2f2;
+}
+
+#main1 {
+  transition: margin-left .5s;
+  padding: 2px;
+  margin-left: 2%;
+  border-radius: 6px;
+  padding-right: 1px;
+  padding-left: 15px;
+  padding-top: 2%;
+  margin-right: 2%;
+}
+
+#navmain {
+  transition: margin-left .5s;
+  padding: 20px;
+}
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+.navbar-brand-header {
+  float: center;
+  height: 45px;
+  padding: 15px 15px;
+  font-size: 150px;
+  line-height: 20px;
+  margin-right: 35%;
+  margin-left: 40%;
+  color: white;
+}
+
+#DivForHoverItem {
+    /*just so we can see it*/
+    height: 15px;
+    width: 70px;
+    align: center;
+  /*  background-color: red;*/
+}
+
+#HiddenText {
+    display: none;
+}
+
+#DivForHoverItem:hover #HiddenText {
+    display:block;
+}
+
+.maincontainer {
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: 1%;
+  margin-left: auto;
+}
+
+.smallFont {
+  font-size: 12px;
+
+}
+.boldcol {
+  font-weight: bold;
+}
+table tr  td{
+  width: 25%;
+  text-align: left;
+}
+table#threeCols{
+table-layout: fixed;
+  width: 100%;
+}
+table#threeColsSP{
+table-layout: fixed;
+  width: 100%;
+}
+
+table#threeCols tr td {
+  width: 25%;
+  text-align: center;
+}
+
+table#threeColsSP tr td {
+  width: 25%;
+  text-align: center;
+}
+table#threeCols th {
+    text-align: center;
+}
+table#threeColsSP th {
+    text-align: center;
+}
+.led-green {
+  margin: 0 auto;
+  width: 24px;
+  height: 24px;
+  background-color: #ABFF00;
+  border-radius: 50%;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 -1px 7px 1px, inset #304701 0 -1px 9px, #89FF00 0 2px 12px;
+}
+
+.led-box{
+  height: 30px;
+ width: 25%;
+ margin: 10px 0;
+ float: left;
+}
+table.sixCols{
+table-layout: fixed;
+  width: 100%;
+}
+table.sixCols td {
+  width: 16%;
+  text-align: center;
+}

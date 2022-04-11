@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>LLM Portal</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+	<link href="{% static 'css/register.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  </head>
+  <body class="cui" data-theme="dark">
+
+    <div class="subheader">Centered</div>
+    <header class="header">
+      <div class="container">
+          <div class="header-panels">
+              <div class="header-panel">
+                 <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                     <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                  </a>
+                 <div class="header__title">Add New Lesson</div>
+             </div>
+              <div class="header-panel header-panel--center">
+                  <div class="header-item">
+                      <ul id="tabsheader" class="tabs">
+                          <li id="tabsheader-1" class="tab">
+                              <a href="/LLM/mainPage" tabindex="0">
+                                  <div class="tab__heading">Home</div>
+                              </a>
+                          </li>
+                          <li id="tabsheader-3" class="tab active">
+                              <a href=# tabindex="0">
+                                  <div class="tab__heading">Add New Lesson</div>
+                              </a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="header-panel header-panel--right">
+                  <a href="/account/logout" class="header-item">
+                      <span class="half-margin-right">Log Out</span>
+                      
+                  </a>
+              </div>     
+         </div>
+      </div>
+    </header>
+    <br>
+    <br>
+    <br>
+
+
+<div id = "main">
+    {% for message in messages %}
+    <h5 style="color: #CD5C5C" align="center"> {{message}}</h5>
+    {% endfor %}
+        <form action="/LLM/addLesson/{{user.username}}/{{user.first_name}}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <table class="table table--striped">
+            <tr>
+              <header>
+                <th colspan="4"><h3 align="center">Add Lesson Details</h3></th>
+              </header>
+            </tr>
+            <tr>
+               <!-- <th style = "text-align: center">Issue ID : </th>
+                <td><input type="text" name="issueId" placeholder="Auto Generated" disabled/></td>
+                 
+                <th style = "text-align: center">Region</th>
+                <td><input type="text" name="region" placeholder="Region"/></td> -->
+
+                <th>Project Name </th>
+                <td>
+				
+				
+				
+				<select name="project" id="project" style=" margin: 10px;
+    background: rgba(0, 0, 0, 0.3);
+    backgroundcolor: #fff;
+    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4); ">
+                <option>Select Projects</option>
+                <option value="1">Morgan Stanley</option>
+                <option value="2">Citi Bank</option>
+                <option value="3">T-Mobile</option>
+				<option value="4">Goldman Sachs</option>
+            </select></td>
+                 
+                <th>Region</th>
+                <td><input type="text" name="region" placeholder="Region" style="color:black;"/></td>
+                
+                
+            </tr>
+            
+            <tr>
+              <!--<th>Recorded By: </th>-->
+              <th>Model Number </th>
+              <td><input type="text" name="modelNumber" placeholder="Model Number" style="color:black;" />
+                  <!--<b>{{user.first_name}}</b>-->
+                </td>
+                <!--<td><input type="text" name="recorderBy" placeholder={{user.first_name}} style="color:#e2231a;" />
+                  <b>{{user.first_name}}</b>
+                </td>-->
+                <th>Device OS</th>
+                <td><input type="text" name="deviceOS" placeholder="DeviceOS" style="color:black;"/></td>
+            </tr>
+            <tr>
+              <th>Tac ID</th>
+                <td><input type="text" name="tacID" placeholder="TacID" style="color:black;"/></td>
+                <th>Status</th>
+                <td><input type="text" name="status" placeholder="Status" style="color:black;"/></td>
+            </tr>
+            <tr>
+              <th><b>Issue Title :</th>
+              <td><input type="text" name="title" placeholder="IssueTitle" style="color:black;"/></td>
+              <th>Date of Occurence</th>
+              <td><input type="date" name="date" style="color:black;"/></td>
+            </tr>
+            <tr>
+              <th>Activity Type</th>
+              <td><input type="text" name="activityType" placeholder="Activity Type" style="color:black;"/></td>
+              <th>Functional Block</th>
+              <td><input type="text" name="functionalBlock" placeholder="Functional Block" style="color:black;"/></td>
+            </tr>
+          </table>
+         <br>
+         <table class="table table--striped">
+            <tr>
+                <th><h4 align="center"><b>Description</h4></th>
+            </tr>
+            <tr>
+              <td><textarea rows="2" cols="165" name="description" placeholder="Add Description" style="color:black;"></textarea>
+              
+            </tr>
+            <tr>
+                <center><th><h4><b>Solution</h4></th></center>
+            </tr>
+            <tr>
+              <td><textarea rows="2" cols="165" name="solution" placeholder="Add Solution" style="color:black;"></textarea> 
+            </tr>
+            <tr>
+                <center><th><h4><b>What Did We Learn</h4></th></center>
+            </tr>
+            <tr>
+              <td><textarea rows="2" cols="165" name="learnt" placeholder="Add What Did We Learn" style="color:black;"></textarea> 
+            </tr>
+            <tr>
+            <center><th><h4><b>How To Avoid</h4></th></center>
+            </tr>
+            <tr>
+              <td><textarea rows="2" cols="165" name="avoidance" placeholder="Add How To Avoid" style="color:black;"></textarea> 
+            </tr>
+          </table>
+          <br>
+          <div class="col-6 col-lg-4 col-xl-3 panel-icon">
+  
+                <div class="flex-center-vertical">
+                    <div class="flex-center">
+                        <!--<span class="icon-upload icon-size-24"></span>-->
+                    </div>
+                    <div>
+                        <div><h5>Upload Image</h5></div><input type="file" name="image">
+                    </div>
+                </div>
+            
+        </div> 
+
+        <div class="col-6 col-lg-2 base-margin-top">
+          <button class="btn btn--primary" type="submit">Submit</button>
+      </div>
+        </form> 
+      <br>
+      <br>
+    </div>
+    <footer class="footer">
+      <div class="footer__links">
+          <ul class="list list--inline">
+              <li><a href="http://www.cisco.com/cisco/web/siteassets/contacts/index.html" target="_blank">Contacts</a></li>
+              <li><a href="https://secure.opinionlab.com/ccc01/o.asp?id=jBjOhqOJ" target="_blank">Feedback</a></li>
+              <li><a href="https://www.cisco.com/c/en/us/about/help.html" target="_blank">Help</a></li>
+              <li><a href="http://www.cisco.com/c/en/us/about/sitemap.html" target="_blank">Site Map</a></li>
+              <li><a href="https://www.cisco.com/c/en/us/about/legal/terms-conditions.html" target="_blank">Terms & Conditions</a></li></li>
+              <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html" target="_blank">Privacy Statement</a></li>
+              <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html#cookies" target="_blank">Cookie Policy</a></li>
+              <li><a href="https://www.cisco.com/c/en/us/about/legal/trademarks.html" target="_blank">Trademarks</a></li>
+          </ul>
+      </div>
+    </footer>
+  </body>
+</html>

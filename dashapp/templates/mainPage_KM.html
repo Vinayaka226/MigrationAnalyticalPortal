@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>KM Portal</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  </head>
+  <body class="cui" data-theme="dark">
+    <div class="subheader">Centered</div>
+    <header class="header">
+      <div class="container">
+          <div class="header-panels">
+              <div class="header-panel">
+                 <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                     <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                  </a>
+                 <div class="header__title">Migration Analytical Portal</div>
+             </div>
+              <div class="header-panel header-panel--right">
+                  <div class="header-item">
+		{% if user.is_authenticated %}
+                      <ul id="tabsheader" class="tabs">
+                        
+						
+				<li id="tabsheader-1" class="tab active">
+                              <a href=# tabindex="0">
+                                  <div class="tab__heading">Home</div>
+                              </a>
+                          </li>
+                          <li id="tabsheader-2" class="tab">
+                              <a href="/LLM/addLesson/{{user.username}}/{{user.first_name}}" tabindex="0">
+                                  <div class="tab__heading">Add New Lesson</div>
+                              </a>
+                          </li>		
+                          
+                          <li id="tabsheader-3" class="tab">
+                              <a href="/LLM/myLesson/{{user.first_name}}" tabindex="0">
+                                  <div class="tab__heading">My Lessons</div>
+                              </a>
+                          </li>
+                        {% else %}
+                          <li id="tabsheader-1" class="tab active">
+                              <a href=# tabindex="0">
+                                <div class="tab__heading">Home</div>
+                              </a>
+                          </li>
+                          <li id="tabsheader-3" class="tab">
+                              <a href="/account/login" tabindex="0">
+                                <div class="tab__heading">Login</div>
+                              </a>
+                          </li>
+                          <li id="tabsheader-3" class="tab">
+                            <a href="/account/register" tabindex="0">
+                              <div class="tab__heading">Register Here</div>
+                            </a>
+                          </li>
+                        {% endif %}
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/mainpage/" tabindex="0">
+                              <div class="tab__heading">Dashboard HomePage</div>
+                            </a>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+              <div class="header-panel header-panel--right">
+                {% if user.is_authenticated %}
+
+		
+			
+                  <a href="/account/logout" class="header-item">
+                      <span class="half-margin-right">Log Out</span>
+                      
+                  </a>
+                {% endif %}
+              </div>     
+         </div>
+      </div>
+    </header>
+
+    <br>
+    <br>
+    <br>
+
+<div id = "main">
+<div id = "search">
+ <!-- <input type="text" name="search" placeholder="Search.." class='srch'>-->
+</div>
+<div id = 'filters'>
+ <!--<h4 align='center'>Select Filters</h4><br>
+  <form action="/search/" method="get">
+    <div id = 'f1'>
+      <label for="fblock" >Functional Block</label><br>
+      <input type="text" id="fblock" name="fblock">       
+    </div>
+    <div id = 'f2'>
+      <label for="do">Device Or OS</label><br>
+      <input type="text" id="do" name="do">                          
+    </div>
+    <div id = 'f3'>
+      <label for="region">Region</label><br>
+      <input type="text" id="region" name="region">  
+    </div>
+    <div id = "button"> 
+      <input type="Submit" value="Filter">  
+    </div>
+  </form>--> 
+</div>
+{% if user.is_authenticated %}
+{% if messages %}
+            {% for message in messages %}
+            {% if message.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+            <ul>
+              <li>
+        <h5 style="color: #bf5702">Your Lesson with ID: <b>{{ message}}</b> was Successfully Deleted</h5>
+      </li>
+      </ul>
+        {% endif %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <ul>
+              <li>
+        <h5 style="color: #bf5702">Your Lesson with ID: <b>{{ message }}</b></h5>
+      </li>
+      </ul>
+        {% endif %}
+        {% endfor %}
+             {% endif %}
+  <h3 class="text-center" class="text-default">Knowledge Manager Database</h3>
+  <div class="responsive-table">
+    <table class="table table--striped" aria-label="Striped table example" id="threeCols">
+          <thead>
+            <tr>
+              <!--<header>-->
+                <th><b>Issue ID</b></th>
+                <th><b>Model Number</b></th>
+                <th><b>Issue Title</b></th>
+                <th><b>Project</b></th>
+                <th><b>Region</b></th>
+                <th><b>Functional Block</b></th>
+                <th><b>Activity Type</b></th>
+                <th><b>Date</b></th>
+                <th><b>Recorded By</b></th>
+              <!--</header>-->
+            </tr>
+          </thead>
+          <tbody>
+            {% for lrows in lessons %}
+            <tr>
+              <!--<td><a href="/showprojectDetails/{{dbirows.projectName}}">{{lrows.Description}}</a></td>-->
+              <td><a href="/LLM/showDetails/{{lrows.IssueID.IssueID}}">{{lrows.IssueID.IssueID}}</td>
+              <td>{{lrows.modelNumber}}</td>
+              <td>{{lrows.IssueID.IssueTitle}}</td>
+              <td>{{lrows.project.project_Name}}</td>
+              <td>{{lrows.IssueID.Region}}</td>
+              <td>{{lrows.IssueID.FunctionalBlock}}</td>
+              <td>{{lrows.Activity_Type}}</td>
+              <td>{{lrows.Date_of_Migration}}</td>
+              <td>{{lrows.Recorded_By}}</td>
+             <!-- <td class = "y_n">{{dbirows.completionZone}}</td> 
+              <td>
+                  <a href="/editDash/{{dbirows.projectName}}"> Edit Entry</a>
+                  <a href="/deleteDash/{{dbirows.projectName}}"> Delete Entry</a>
+              </td>-->
+            </tr>
+            {% endfor %}
+          </tbody>
+    </table>      
+          <br>
+         <!-- <br>
+          <a href="/addDash">Add New Project</a> 
+        <br>
+    <br> -->
+    {% else %}
+    <center> <h3 style="color:#f56642">Please Sign-In to view Lesson Learned Information</h3></center>
+    {% endif %}
+      <div class="containerGraph">
+        <div class="row">
+          {% if user.is_authenticated %}
+          <script>
+          window.onload = function(){
+            //console.log("Here");
+           // drawCat({{apacCount}},{{amearCount}});
+            //drawHealth({{apacCount}},{{amearCount}},{{emeaCount}});
+            //drawTeamStrength({{newCount}},{{completedCount}},{{currentCount}});
+          };
+          </script>
+          {% endif %}
+          <!--<div class="col-xs-4"><canvas id="myChart" style = "height: 400px width: 400px;"</canvas></div>
+          <div class="col-xs-4"><canvas id="myChartPie" style = "height: 400px width: 400px;"</canvas></div>
+            <div class="col-xs-4"><canvas id="teamStrength" style = "height: 400px width: 400px;"</canvas></div> -->
+        </div>
+      </div>
+      <br>
+    </div>
+
+    <!-- <script  src=
+"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
+        <script src=
+"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js">
+        </script>
+        <script src="fancyTable.js">
+        </script>
+        <script type="text/javascript" src="{% static 'js/fancyTable.js' %}"></script>
+        <script type="text/javascript">
+              
+            $(document).ready(function() {
+                $("#threeCols").fancyTable({
+                  /* Column number for initial sorting*/
+                   sortColumn:0,
+                   /* Setting pagination or enabling */
+                   pagination: true,
+                   /* Rows per page kept for display */
+                   perPage:5,
+                   globalSearch:true
+                   });
+                              
+            });
+        </script>-->
+        <script  src=
+"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
+        <script src=
+"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js">
+        </script>
+        <script src="fancyTable.js"></script>
+        <script type="text/javascript">
+                  
+            $(document).ready(function(){
+              
+                $("#threeCols").fancyTable({
+                   sortColumn:0,
+                   /* Setting pagination or enabling */
+                   pagination: true,
+                   perPage:7,
+                       globalSearch:true,
+                    /* Exclude 2nd column from global search.*/
+                   globalSearchExcludeColumns: [0],
+                   onInit:function(){                 
+                   /* On initialization of table */
+                                 console.log({ element:this });
+                                    },
+                   onUpdate:function(){
+                   /* On update like search and sort of table */                  
+                    console.log({ element:this });
+                   }
+                       });                            
+            });            
+        </script>       
+
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script type="text/javascript" src="{% static 'js/charts.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/ChartsPie.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/fancyTable.js' %}"></script>
+  <footer class="footer">
+    <div class="footer__links">
+        <ul class="list list--inline">
+            <li><a href="http://www.cisco.com/cisco/web/siteassets/contacts/index.html" target="_blank">Contacts</a></li>
+            <li><a href="https://secure.opinionlab.com/ccc01/o.asp?id=jBjOhqOJ" target="_blank">Feedback</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/help.html" target="_blank">Help</a></li>
+            <li><a href="http://www.cisco.com/c/en/us/about/sitemap.html" target="_blank">Site Map</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/terms-conditions.html" target="_blank">Terms & Conditions</a></li></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html" target="_blank">Privacy Statement</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html#cookies" target="_blank">Cookie Policy</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/trademarks.html" target="_blank">Trademarks</a></li>
+        </ul>
+    </div>
+  </footer>
+  </body>
+</html>

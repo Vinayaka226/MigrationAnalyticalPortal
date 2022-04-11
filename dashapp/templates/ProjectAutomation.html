@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Red/Blue Emp Details</title>
+	{% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+</head>
+<body class='cui' data-theme="dark">
+	<header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">Project Automation Details</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <div class="header-item">
+                    <ul id="tabsheader" class="tabs">
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/mainpage/">
+                                <div class="tab__heading">Home</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+   </div>
+</header>
+<br>
+<br>
+<br>
+<div>
+	<div class="maincontainer">
+		<div class="row base-margin-bottom">
+    		<div class="col-12">
+        		<div class="panel"><center class="text-weight-900">Automation incorporated by Migration Team</center></div>
+   			 </div>
+		</div>
+		<div class="row base-margin-bottom">
+    		<div class="col-4">
+        		<div class="panel"><ul ><LH class="text-weight-700">Projects and Average Automation</LH>
+        			<li>Count of projects including automation: <b>{{projectsAutomated}}</b></li>
+        			<li>Total Projects under Migration Team: <b>{{availableProjectsCount}}</b></li>
+        			<li><ul> <LH class="text-weight-600">Projects Name and average Automation in %</LH></li>
+        			{% for name, avg in zippedProjectInfo%}
+        			<li>Project name: <b>{{name}}</b> and Average automation: <b>{{avg}}</b></li>
+        			{% endfor %}
+        			</ul>
+        			<li><ul><LH>Projects with minimal or no Automation activities</LH>
+                        <!--<li>Below are project names</li> -->
+                        {% for noProj in namesWithNoAutomation %}
+                        <li style="color: #e2231a"><b>{{noProj}}</b></li>
+                        {% endfor %}
+                    </ul></li>
+        			
+        			</ul>
+        		</div>
+        		
+    		</div>
+
+            <script>
+        window.onload = function(){
+
+        projectsAutomated({{labels|safe}},{{projectsCount|safe}});
+        automationAcrossMigration({{taskListLabel|safe}},{{averagedMigrationValues|safe}});
+
+  };
+  </script>
+
+    		<div class="col-4">
+        		<div class="panel"><ul > <LH class="text-weight-600">Total Projects and Automated Projects</LH>
+        			<canvas id="totalVsAutomated" height="250px"></canvas></b>
+        				
+        			</ul>
+        	</div>
+    		</div>
+    		<div class="col-4">
+        		<div class="panel"><ul ><LH class="text-weight-600">Average automation achieved across multiple migration teams</LH>
+        		
+                        <canvas id="averageAutomationAcrossProjects" height="300px"></canvas>
+
+
+        			
+
+        		</ul>
+        		</div>
+    		</div>
+	</div>
+	
+	<div class="row base-margin-bottom">
+    	<div class="col-6">
+        	<div class="panel">
+        		<canvas id="leadscapableLeads"></canvas>
+        	</div>
+    	</div>
+    	<div class="col-6">
+        	<div class="panel">
+        		<canvas id="redWithoutProjects"></canvas>
+        	</div>
+    	</div>
+	</div>
+
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript" src="{% static 'js/dougnut.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/lineChart.js' %}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+</body>
+</html>

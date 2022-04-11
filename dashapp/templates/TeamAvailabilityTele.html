@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Teams Availability</title>
+	{% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+</head>
+<body class='cui' data-theme="dark">
+	<header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="#" target="_blank">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">Migration Analytical Portal</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <div class="header-item">
+                    <ul id="tabsheader" class="tabs">
+                        <li id="tabsheader-1" class="tab active">
+                            <a tabindex="0">
+                                <div class="tab__heading">Team's Availability </div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-2" class="tab">
+                            <a href="/showAvailabilityTracker/">
+                                <div class="tab__heading">Back</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/mainpage/">
+                                <div class="tab__heading">Home</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+   </div>
+</header>
+<br>
+<br>
+<br>
+<div>
+	<div class="maincontainer">
+		<div class="row base-margin-bottom">
+    		<div class="col-12">
+        		<div class="panel"><center class="text-weight-900 text-size-20" style="color:#00bceb;">Migration Team's Employee Availability Information</center></div>
+   			 </div>
+		</div>
+		<div class="row base-margin-bottom">
+    		<div class="col-4">
+        		<div class="panel"><ul ><LH class="text-weight-700 text-size-16" style="color:#00bceb;">{{month1}}'s' Overall View</LH>
+        			<li>Total Resources Available: <b style="color:#fbab18;">{{m1Count}}</b></li>
+        			<ul> <LH class="text-weight-600" style="color:#6abf4b;">Resources List Below</LH></ul>
+        			{% for name,mgr,bw in m1Zip%}
+        			<li class="text-size-12">Employee: <b style="color:#fbab18;">{{name}}</b> having bandwidth <b style="color:#fbab18;">{{bw}}%</b></li>
+        			{% endfor %}
+        			<ul> <LH class="text-weight-600" style="color:#6abf4b;">Roles and Respective Counts</LH></ul>
+                    {% for role,count in m1RoleZip %}
+        			<li class="text-size-12">Role: <b style="color:#fbab18;">{{role}}</b> & Count: <b style="color:#fbab18;">{{count}}</b></li>
+                    {% endfor %}
+        			</ul>
+                    <ul> <LH class="text-weight-600" style="color:#6abf4b;">Resources are under these Managers</LH></ul>
+                    {% for name in m1empMgr %}
+                    <li class="text-size-12">Name: <b style="color:#e2231a;">{{name}}</b></li>
+                    {% endfor %}
+                    </ul>
+        		</div>
+        		
+    		</div>
+    		<div class="col-4">
+        		
+                <div class="panel"><ul ><LH class="text-weight-700 text-size-16" style="color:#00bceb;">{{month2}}'s' Overall View</LH>
+                    <li>Total Resources Available: <b style="color:#fbab18;">{{m2Count}}</b></li>
+                    <ul> <LH class="text-weight-600" style="color:#6abf4b;">Resources List Below</LH></ul>
+                    {% for name,mgr,bw in m2Zip%}
+                    <li class="text-size-12">Employee: <b style="color:#fbab18;">{{name}}</b> having bandwidth <b style="color:#fbab18;">{{bw}}%</b></li>
+                    {% endfor %}
+                    <ul> <LH class="text-weight-600" style="color:#6abf4b;">Roles and Respective Counts</LH></ul>
+                    {% for role,count in m2RoleZip %}
+                    <li class="text-size-12">Role: <b style="color:#fbab18;">{{role}}</b> & Count: <b style="color:#fbab18;">{{count}}</b></li>
+                    {% endfor %}
+                    <ul> <LH class="text-weight-600" style="color:#6abf4b;">Resources are under these Managers</LH></ul>
+                    {% for name in m2empMgr %}
+                    <li class="text-size-12">Name: <b style="color:#e2231a;">{{name}}</b></li>
+                    {% endfor %}
+
+                    </ul>
+                </div>
+
+    		</div>
+    		<div class="col-4">
+        		
+                    <div class="panel"><ul ><LH class="text-weight-700 text-size-16" style="color:#00bceb;">{{month3}}'s' Overall View</LH>
+                    <li>Total Resources Available: <b style="color:#fbab18;">{{m3Count}}</b></li>
+                    <ul> <LH class="text-weight-600" style="color:#6abf4b;">Resources List Below</LH></ul>
+                    {% for name,mgr,bw in m3Zip%}
+                    <li class="text-size-12">Employee: <b style="color:#fbab18;">{{name}}</b> having bandwidth <b style="color:#fbab18;">{{bw}}%</b></li>
+                    {% endfor %}
+                    <ul> <LH class="text-weight-600" style="color:#6abf4b;">Roles and Respective Counts</LH></ul>
+                    {% for role,count in m3RoleZip %}
+                    <li class="text-size-12">Role: <b style="color:#fbab18;">{{role}}</b> & Count: <b style="color:#fbab18;">{{count}}</b></li>
+                    {% endfor %}
+                    <ul> <LH class="text-weight-600" style="color:#6abf4b;">Resources are under these Managers</LH></ul>
+                    {% for name in m3empMgr %}
+                    <li class="text-size-12">Name: <b style="color:#e2231a;">{{name}}</b></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+
+
+    		</div>
+	</div>
+
+
+
+
+
+        <div class="row base-margin-bottom">
+            <div class="col-4">
+                <div class="panel"><ul ><LH class="text-weight-700 text-size-16" style="color:#00bceb;">{{month4}}'s' Overall View</LH>
+                    <li>Total Resources Available: <b style="color:#fbab18;">{{m4Count}}</b></li>
+                    <ul> <LH class="text-weight-600" style="color:#6abf4b;">Resources List Below</LH></ul>
+                    {% for name,mgr,bw in m4Zip%}
+                    <li class="text-size-12">Employee: <b style="color:#fbab18;">{{name}}</b> having bandwidth <b style="color:#fbab18;">{{bw}}%</b></li>
+                    {% endfor %}
+                    <ul> <LH class="text-weight-600" style="color:#6abf4b;">Roles and Respective Counts</LH></ul>
+                    {% for role,count in m4RoleZip %}
+                    <li class="text-size-12">Role: <b style="color:#fbab18;">{{role}}</b> & Count: <b style="color:#fbab18;">{{count}}</b></li>
+                    {% endfor %}
+                    <ul> <LH class="text-weight-600" style="color:#6abf4b;">Resources are under these Managers</LH></ul>
+                    {% for name in m4empMgr %}
+                    <li class="text-size-12">Name: <b style="color:#e2231a;">{{name}}</b></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+                
+            </div>
+            <div class="col-4">
+                
+                <div class="panel"><ul ><LH class="text-weight-700 text-size-16" style="color:#00bceb;">{{month5}}'s' Overall View</LH>
+                    <li>Total Resources Available: <b style="color:#fbab18;">{{m5Count}}</b></li>
+                    <ul> <LH class="text-weight-600" style="color:#6abf4b;">Resources List Below</LH></ul>
+                    {% for name,mgr,bw in m5Zip%}
+                    <li class="text-size-12">Employee: <b style="color:#fbab18;">{{name}}</b> having bandwidth <b style="color:#fbab18;">{{bw}}%</b></li>
+                    {% endfor %}
+                    <ul> <LH class="text-weight-600" style="color:#6abf4b;">Roles and Respective Counts</LH></ul>
+                    {% for role,count in m5RoleZip %}
+                    <li class="text-size-12">Role: <b style="color:#fbab18;">{{role}}</b> & Count: <b style="color:#fbab18;">{{count}}</b></li>
+                    {% endfor %}
+                    <ul> <LH class="text-weight-600" style="color:#6abf4b;">Resources are under these Managers</LH></ul>
+                    {% for name in m5empMgr %}
+                    <li class="text-size-12">Name: <b style="color:#e2231a;">{{name}}</b></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+
+            </div>
+            
+    </div>
+
+
+
+	<script>
+     	window.onload = function(){
+
+      	leadsvsLeadsCapable({{leadsDougnutLabels|safe}},{{leadsDougnutCount|safe}});
+      	blueWithoutProjects({{noProjDougnutLabels|safe}},{{noProjDougnutCount}});
+
+  };
+  </script>
+	<div class="row base-margin-bottom">
+    	<div class="col-6">
+        	<div class="panel">
+        		<canvas id="leadscapableLeads"></canvas>
+        	</div>
+    	</div>
+    	<div class="col-6">
+        	<div class="panel">
+        		<canvas id="blueWithoutProjects"></canvas>
+        	</div>
+    	</div>
+	</div>
+
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript" src="{% static 'js/dougnut.js' %}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+</body>
+</html>

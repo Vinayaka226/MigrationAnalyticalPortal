@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Employee Availability Information</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  </head>
+  <body class='cui' data-theme="dark">
+      <header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">Migration Analytical Portal</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <div class="header-item">
+                    <ul id="tabsheader" class="tabs">
+{% if user.is_authenticated and user.is_staff%}
+			<li id="tabsheader-1" class="tab active">
+                            <a href="#">
+                                <div class="tab__heading">Availability Info</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/showAvailabililtTelemetry/">
+                                <div class="tab__heading">Telemetry Info</div>
+                            </a>
+                        </li>
+			<li id="tabsheader-3" class="tab">
+                            <a href="/showTeamsAvailability/">
+                                <div class="tab__heading">Team's Availability Info</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/mainpage/">
+                                <div class="tab__heading">Home</div>
+                            </a>
+                        </li>
+			<li id="tabsheader-5" class="tab">
+
+			 <a href="/account/logout" class="header-item">
+                      <span class="half-margin-right">Log Out</span>
+                      
+                  </a>
+		</li>
+{% endif %}
+                    </ul>
+
+                </div>
+            </div>
+        </div>
+   </div>
+</header>
+
+<br>
+<br>
+  <br>
+  
+    <div>
+    <div class="row">
+
+        <br>
+       {% if user.is_authenticated and user.is_staff%}
+       <table id = "threeCols" class="table table--striped" aria-label="Default">
+            
+            <thead>
+                
+            <tr>
+                <th></th>
+                <th class="text-weight-900" style="color:#00bceb;">NCE Name</th>
+                <th class="text-weight-900" style="color:#00bceb;">Manager</th>
+                <th class="text-weight-900" style="color:#00bceb;">CEC ID</th>
+                <th class="text-weight-900" style="color:#00bceb;">Role</th>
+                <!--<th class="text-weight-900">Update/Delete Entry</th> -->
+                <th class="text-weight-900" style="color:#00bceb;">Project</th>
+                <th class="text-weight-900" style="color:#00bceb;">{{mon11}}</th>
+                <th class="text-weight-900" style="color:#00bceb;">{{mon22}}</th>
+                <th class="text-weight-900" style="color:#00bceb;">{{mon33}}</th>
+                <th class="text-weight-900" style="color:#00bceb;">{{mon44}}</th>
+                <th class="text-weight-900" style="color:#00bceb;">{{mon55}}</th>
+              
+            </tr>
+            </thead>
+            
+            
+            <tr>
+             {% for dummy,nce, manager,cec,role,project,month1,month2,month3,month4,month5  in zippedList %} 
+             <td>{{dummy}}</td>  
+            <td><a href="/resources/details/{{cec}}">{{nce}}</a></td>
+            <td>{{manager}}</td>
+            <td>{{cec}}</td>
+            <td>{{role}}</td>
+            <td>{{project}}</td>
+            {% if month1 > 20 %}
+            <td class="text-weight-500 text-size-16" style="color:#6abf4b;">{{month1}}</td>
+            {% else%}
+            <td class="text-weight-500 text-size-16" style="color:#f06969;">{{month1}}</td>
+            {% endif %}
+            {% if month2 > 20 %}
+            <td class="text-weight-500 text-size-16" style="color:#6abf4b;">{{month2}}</td>
+            {% else%}
+            <td class="text-weight-500 text-size-16" style="color:#f06969;">{{month2}}</td>
+            {% endif %}
+            {% if month3 > 20 %}
+            <td class="text-weight-500 text-size-16" style="color:#6abf4b;">{{month3}}</td>
+            {% else%}
+            <td class="text-weight-500 text-size-16" style="color:#f06969;">{{month3}}</td>
+            {% endif %}
+            {% if month4 > 20 %}
+            <td class="text-weight-500 text-size-16" style="color:#6abf4b;">{{month4}}</td>
+            {% else%}
+            <td class="text-weight-500 text-size-16" style="color:#f06969;">{{month4}}</td>
+            {% endif %}
+            {% if month5 > 20 %}
+            <td class="text-weight-500 text-size-16" style="color:#6abf4b;">{{month5}}</td>
+            {% else%}
+            <td class="text-weight-500 text-size-16" style="color:#f06969;">{{month5}}</td>
+            {% endif %}
+            
+            
+
+            </tr>
+          {% endfor %}
+          </table>
+
+
+          <script  src=
+"https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+        </script>
+        <script src=
+"https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.min.js">
+        </script>
+        <script src="fancyTable.js"></script>
+        <script type="text/javascript">
+                  
+            $(document).ready(function(){
+              
+                $("#threeCols").fancyTable({
+                   sortColumn:0,
+                   /* Setting pagination or enabling */
+                   pagination: true,
+                   perPage:20,
+                       globalSearch:true,
+                    /* Exclude 2nd column from global search.*/
+                   globalSearchExcludeColumns: [0],
+                   onInit:function(){                 
+                   /* On initialization of table */
+                                 console.log({ element:this });
+                                    },
+                   onUpdate:function(){
+                   /* On update like search and sort of table */                  
+                    console.log({ element:this });
+                   }
+                       });                            
+            });            
+        </script>
+
+    </div>
+
+    <div class="row base-margin-bottom">
+
+            
+                <div class="col-6">
+                    <!--<div class="panel panel"><canvas id="managerReportees"></canvas></div> -->
+                </div>
+{% else %}
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<br>
+    <center> <h3 style="color:#f56642">Please Sign-In to view Project Details</h3></center>
+
+{% endif %}
+          </div>
+    </div>
+    
+    {% if messages %}
+      <ul class="messages">
+      {% for message in messages %}
+      <li {% if message.tags %} class="{{ message.tags }}" >{% endif %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+        <h5 style="color: #CD5C5C"><b>Important: </b>{{ message }}</h5>
+        {% endif %}
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+        <h4 style="color: #048c66"> Successfully Uploaded! {{message}}</h4>
+        {% endif %}
+    <!--<h5 style="color: #CD5C5C" align="center"> {{message}}</h5>-->
+    
+    </li>
+    {% endfor %}
+    </ul>
+    {% endif %}
+    <hr>
+    <script>
+          window.onload = function(){
+            drawManagersResourcesCount({{managersList|safe}},{{empCount|safe}});
+          };
+          </script>
+
+    
+    <script type="text/javascript" src="{% static 'js/fancyTable.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript" src="{% static 'js/barCharts.js' %}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+    <footer class="footer">
+    <div class="footer__links">
+        <ul class="list list--inline">
+            <li><a href="http://www.cisco.com/cisco/web/siteassets/contacts/index.html" target="_blank">Contacts</a></li>
+            <li><a href="https://secure.opinionlab.com/ccc01/o.asp?id=jBjOhqOJ" target="_blank">Feedback</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/help.html" target="_blank">Help</a></li>
+            <li><a href="http://www.cisco.com/c/en/us/about/sitemap.html" target="_blank">Site Map</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/terms-conditions.html" target="_blank">Terms & Conditions</a></li></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html" target="_blank">Privacy Statement</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/privacy-full.html#cookies" target="_blank">Cookie Policy</a></li>
+            <li><a href="https://www.cisco.com/c/en/us/about/legal/trademarks.html" target="_blank">Trademarks</a></li>
+        </ul>
+    </div>
+</footer>
+  </body>
+</html>

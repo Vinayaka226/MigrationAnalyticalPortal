@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	{% load static %}
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+</head>
+<body class="cui">
+	<div>
+      <header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                    <img src="{% static 'img/Ciscologo.png' %}" width="90" height="90">
+                </a>
+                <div class="header__title">Migration Dashboard Homepage</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <!--<div class="header-item">
+                    <ul id="tabsheader" class="tabs">
+                        <li id="tabsheader-1" class="tab active">
+                            <a tabindex="0">
+                                <div class="tab__heading">Tab 1</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-2" class="tab">
+                            <a tabindex="0">
+                                <div class="tab__heading">Tab 2</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a tabindex="0">
+                                <div class="tab__heading">Tab 3</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>-->
+            </div>
+        </div>
+   </div>
+</header>
+    </div>
+  <div class="row dbl-padding-bottom">
+        <div class="col-lg-6 col-xl-4 base-padding-bottom">
+            <div class="subheader">Basic</div>
+            <nav class="sidebar" role="navigation">
+                <div class="sidebar__header">
+                    <div class="sidebar__header-title">Options</div>
+                </div>
+                <ul>
+                    <li class="sidebar__item">
+                        <a>Resource Status</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a>Automation</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a>Knowledge Base</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a>Accolades</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a>Charts</a>
+                    </li>
+                    <li class="sidebar__item">
+                        <a>Upload Project Details</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+	<div id="main">
+		
+		<div class="row base-margin-bottom">
+    <div class="col-6">
+        <div class="panel panel--dark">Summary</div>
+        <div class="panel panel--dark">Project Deliverable: Branch transformation (Enterprise R&S)
+Build Migration Plan. Migration involved from multi-vendor
+legacy platforms Catalyst 4500, 3850, 3650, Cisco 3900.</div>
+    </div>
+    <div class="col-3">
+        <div class="panel panel">
+          <div class="col-6 col-lg-3 base-margin-bottom">
+        <div class="gauge gauge--large" data-percentage="{{pdInfo.completionStatus}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{pdInfo.completionStatus}}</div>
+            </div>
+        </div>
+        <div class="gauge__label">Completion_Percentage</div>
+    </div>
+        </div>
+
+    </div>
+    <div class="col-3">
+        <div class="panel panel">
+          <div class="col-3 col-lg-3 base-margin-bottom">
+        <div class="gauge gauge--large" data-percentage="{{pdInfo.completionStatus}}">
+            <div class="gauge__circle">
+                <div class="mask full">
+                    <div class="fill"></div>
+                </div>
+                <div class="mask half">
+                    <div class="fill"></div>
+                    <div class="fill fix"></div>
+
+                </div>
+            </div>
+            <div class="gauge__inset">
+                <div class="gauge__percentage">{{pdInfo.completionStatus}}</div>
+            </div>
+        </div>
+        <div class="gauge__label">Completion_Percentage</div>
+    </div>
+        </div>
+
+    </div>
+
+	</div>
+</body>
+</html>

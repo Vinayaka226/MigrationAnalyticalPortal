@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Enter Project Info</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/projectDetails.css' %}">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+  </head>
+  <body class = "cui">
+
+    <header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">Migration Dashboard Homepage</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <!--<div class="header-item">
+                    <ul id="tabsheader" class="tabs">
+                        <li id="tabsheader-1" class="tab active">
+                            <a tabindex="0">
+                                <div class="tab__heading">Tab 1</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-2" class="tab">
+                            <a tabindex="0">
+                                <div class="tab__heading">Tab 2</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a tabindex="0">
+                                <div class="tab__heading">Tab 3</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>-->
+            </div>
+        </div>
+   </div>
+</header>
+
+    <table class="table table--striped" aria-label="Default">
+    <form class="post-form" action="/updateDash/{{dash.projectName}}" method="POST">
+      {% csrf_token %}
+
+
+      <!--<tr>
+              <header>
+                <th colspan="6"><h4 align="center"><b>Migration Project Summary</b></h4></th>
+              </header>
+      </tr>
+      <tr>
+        <header>
+                <th>Project Name</th>
+                <th>Category (Ent/SP)</th>
+                <th>DM Name</th>
+                
+                <th>Completion Zone</th>
+                <th>Project Status</th>
+      </tr>-->
+
+
+
+      <div class="container">
+        <br>
+        <div class="form-group row">
+          <label class = "col-sm-1 col-form-label"></label>
+          <div class="col-sm-4">
+            <h3>Enter Details</h3>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class = "col-sm-1 col-form-label"> Project name: </label>
+          <div class="col-sm-4">
+            <input type="text" name="projectName" value="{{dash.projectName}}"/>
+            {{form.projectName}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class = "col-sm-1 col-form-label"> Category: </label>
+          <div class="col-sm-4">
+            <input type="text" name="category" value="{{dash.category}}"/>
+            {{form.category}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class = "col-sm-1 col-form-label"> DM Name </label>
+          <div class="col-sm-4">
+            <input type="text" name="dmName" value="{{dash.dmName}}"/>
+            {{form.dmName}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class = "col-sm-1 col-form-label"> completion Zone : </label>
+          <div class="col-sm-4">
+            <input type="text" name="completionZone" value="{{dash.completionZone}}"/>
+            {{form.completionZone}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class = "col-sm-1 col-form-label"> Project Status : </label>
+          <div class="col-sm-4">
+            <input type="text" name="projectStatus" value="{{dash.projectStatus}}"/>
+            {{form.projectStatus}}
+          </div>
+        </div>
+        <div class="form-group row">
+          <label class = "col-sm-1 col-form-label">  </label>
+          <div class="col-sm-4">
+            <button type="submit" class= "btn btn-primary"> Update</button>
+          </div>
+        </div>
+      </div>
+    </form>
+    </table>
+  </body>
+</html>

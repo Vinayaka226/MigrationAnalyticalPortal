@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Red/Blue Emp Details</title>
+	{% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+</head>
+<body class='cui' data-theme="dark">
+	<header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">ENT/SP Technologies Details</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <div class="header-item">
+                    <ul id="tabsheader" class="tabs">
+                        <li id="tabsheader-1" class="tab">
+                            <a href="/entTechnologies/">
+                                <div class="tab__heading">Enterprise </div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-2" class="tab active" >
+                            <a href="#">
+                                <div class="tab__heading">Service Provider</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/automation/">
+                                <div class="tab__heading">Automation</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-4" class="tab">
+                            <a href="/resources/">
+                                <div class="tab__heading">Resources Page</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-5" class="tab">
+                            <a href="/mainpage/">
+                                <div class="tab__heading">Home</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+   </div>
+</header>
+<br>
+<br>
+<br>
+<div>
+	<div class="maincontainer">
+        <script>
+        window.onload = function(){
+
+        //leadsvsLeadsCapable({{leadsDougnutLabels|safe}},{{leadsDougnutCount|safe}});
+        resourcesSkills({{labels|safe}},{{counts|safe}});
+
+  };
+  </script>
+		<div class="row base-margin-bottom">
+    		<div class="col-12">
+        		<div class="panel"><center class="text-weight-900">Migration Team's Employees skilled in Service Provider Technologies</center></div>
+   			 </div>
+		</div>
+
+
+        <div class="row base-margin-bottom">
+    <div class="col-6">
+        <div class="panel"><ul><LH><b>Employees who are currently not assigned to any projects</b></LH>
+            
+               <li> Count: <b>{{freeEmpCount}}</b></li>
+               <li><ul><LH>Employee Names</LH>
+               {% for name in names%}
+               
+                <li>{{name}}</li>
+                {% endfor %}
+               </ul></li>
+        </div>
+        </ul>
+    </div>
+    <div class="col-6">
+        <div class="panel panel"><canvas id="redWithoutProjects"></canvas></div>
+    </div>
+</div>
+
+        <div class="row base-margin-bottom">
+    <div class="col-12">
+        <div class="panel">
+            
+<div class="row base-margin-bottom">
+            <div class="col-12">
+                <div class="panel"><center class="text-weight-900">Below table shows Service Provider skills Employees have</center></div>
+             </div>
+        </div>
+
+    <div class="responsive-table">
+    <table class="table table--striped" aria-label="Striped table example">
+        <thead>
+            <!--<tr>
+                <th>
+                    <label class="checkbox">
+                        <input type="checkbox"/>
+                        <span class="checkbox__input"></span>
+                    </label>
+                </th>-->
+                <th>CECID</th>
+                <th>Routing Switching</th>
+                <th>Mpls L2 L3 Vpn </th>
+                <th>Mpls Te</th>
+                <th>Multicast Vpn</th>
+                <th>Xr Hardware Platforms Os</th>
+                <th>Nexus Hardware Platform Os</th>
+                <th>ccess Platforms</th>
+                <th>Segment Routing</th>
+                <th>SegmentRouting Sdn/Bgp/Pcep</th>
+                <th>Segment Routing TE</th>
+                <th>Evpn PbBEvpn</th>
+                <th>Vxlan</th>
+                <th>NSO</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for emp in availableresourcesSkills%}
+            <tr>
+               <!-- <td>
+                    <label class="checkbox">
+                        <input type="checkbox"/>
+                        <span class="checkbox__input"></span>
+                    </label>
+                </td>-->
+                <td>{{emp.cecId_id}}</td>
+                <td>{{emp.spRoutingSwitching}}</td>
+                <td>{{emp.spMplsL2L3Vpn}}</td>
+                <td>{{emp.spMplste}}</td>
+                <td>{{emp.spMulticastMultiCastVpn}}</td>
+                <td>{{emp.spXrHardwarePlatformsOs}}</td>
+                <td>{{emp.spNexusHardwarePlatformsOs}}</td>
+                <td>{{emp.spAccessPlatforms}}</td>
+                <td>{{emp.spSegmentRouting}}</td>
+                <td>{{emp.spSegmentRoutingSdnBgpPcep}}</td>
+                <td>{{emp.spSegmentRoutingTE}}</td>
+                <td>{{emp.spEvpnPbBEvpn}}</td>
+                <td>{{emp.spVxlan}}</td>
+                <td>{{emp.spNso}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+        </div>
+    </div>
+</div>
+	
+	<div class="row base-margin-bottom">
+    	<div class="col-6">
+        	<div class="panel">
+        		<canvas id="leadscapableLeads"></canvas>
+        	</div>
+    	</div>
+    	<div class="col-6">
+        	<div class="panel">
+        		<canvas id="redWithoutProjects"></canvas>
+        	</div>
+    	</div>
+	</div>
+
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript" src="{% static 'js/dougnut.js' %}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+</body>
+</html>

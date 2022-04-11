@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>LLM Portal</title>
+    {% load static %}
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+     
+    <!--<link rel="stylesheet" href="{% static 'css/mystyle.css' %}">-->
+	<link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  </head>
+  <body class = "cui" data-theme="dark">
+
+  <div class="subheader">Centered</div>
+    <header class="header">
+      <div class="container">
+          <div class="header-panels">
+              <div class="header-panel">
+                 <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                     <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                  </a>
+                 <div class="header__title">Lessons Details Page</div>
+             </div>
+              <div class="header-panel header-panel--center">
+                  <div class="header-item">
+                      <ul id="tabsheader" class="tabs">
+                        {% if user.is_authenticated %}
+                          <li id="tabsheader-1" class="tab">
+                              <a href="/LLM/mainPage" tabindex="0">
+                                  <div class="tab__heading">Home</div>
+                              </a>
+                          </li>
+                          <li id="tabsheader-2" class="tab">
+                              <a href="/LLM/addLesson/{{user.username}}/{{user.first_name}}" tabindex="0">
+                                  <div class="tab__heading">Add New Lesson</div>
+                              </a>
+                          </li>
+                          <li id="tabsheader-3" class="tab active">
+                              <a href="/LLM/myLesson/{{user.first_name}}" tabindex="0">
+                                  <div class="tab__heading">Lesson Details</div>
+                              </a>
+                          </li>
+                        {% else %}
+                          <li id="tabsheader-1" class="tab active">
+                              <a href="/LLM/mainPage">
+                                <div class="tab__heading">Home</div>
+                              </a>
+                          </li>
+                          <li id="tabsheader-3" class="tab">
+                              <a href="/account/login" tabindex="0">
+                                <div class="tab__heading">Login</div>
+                              </a>
+                          </li>
+                          <li id="tabsheader-3" class="tab">
+                            <a href="/account/register" tabindex="0">
+                              <div class="tab__heading">Register Here</div>
+                            </a>
+                          </li>
+                        {% endif %}
+                      </ul>
+                  </div>
+              </div>
+              <div class="header-panel header-panel--right">
+                {% if user.is_authenticated %}
+                  <a href="/account/logout" class="header-item">
+                      <span class="half-margin-right">Log Out</span>
+                      
+                  </a>
+                {% endif %}
+              </div>     
+         </div>
+      </div>
+    </header>
+<div id = "main">
+          <center>
+            <h4 style="color:#1a1aff;">
+              Details Related to Lesson ID <b>{{lessonId}}</b>:
+            </h4>
+          </center>
+		  <div class="row">
+		  
+		  <div class="subheader "></div>
+		  <div class="text-weight-900">..Details Related to Lesson ID <b>{{lessonId}}</b></div>
+		  </div>
+          <table border="1" id = "threeCols" class="table table--striped" aria-label="Striped table example">
+            <tr>
+              <header>
+                <th colspan="7"><h3 align="center">Lesson Summary</h3></th>
+              </header>
+            </tr>
+            <tr>
+              <header>
+                <th style = "text-align: center">Project Name</th>
+                <th style = "text-align: center">Region</th>
+                <th style = "text-align: center">Recorded By</th>
+                <th style = "text-align: center">Device OS</th>
+                <th style = "text-align: center">TAC ID</th>
+                <th style = "text-align: center">STATUS</th>
+                <th style = "text-align: center">Model Number</th>
+                
+              </header>
+            </tr>
+            {% for lrows in lessons %}
+            <tr>
+              <!--<td><a href="/showprojectDetails/{{dbirows.projectName}}">{{lrows.Description}}</a></td>-->
+              <td style = "text-align: center">{{lrows.project.project_Name}}</td>
+              <td style = "text-align: center">{{lrows.IssueID.Region}}</td>
+              <td style = "text-align: center">{{lrows.Recorded_By}}</td>
+              <td style = "text-align: center">{{lrows.IssueID.DeviceOS}}</td>
+              <td style = "text-align: center">{{lrows.IssueID.TACID}}</td>
+              <td style = "text-align: center">{{lrows.Status}}</td>
+              <td style = "text-align: center">{{lrows.modelNumber}}</td>
+            </tr>
+            {% endfor %}
+          </table>
+		  {% for lrows in lessons %}
+		  
+	<div class="row">
+	
+			<div class="col-md-3">
+        <div class="subheader text-weight-900">Title</div>
+        <blockquote class="blockquote--info">
+            <p>{{lrows.IssueID.IssueTitle}}</p>
+			<cite></cite>
+        </blockquote>
+    </div>
+	
+	<div class="col-md-3">
+        <div class="subheader text-weight-900">Activity Type</div>
+        <blockquote class="blockquote--info">
+            <p>Type: {{lrows.Activity_Type}}</p>
+            <cite></cite>
+        </blockquote>
+    </div>
+	<div class="col-md-3">
+        <div class="subheader text-weight-900"> Date of Occurance</div>
+        <blockquote class="blockquote--info">
+            <p>Date: {{lrows.Date_of_Migration}}</p>
+            <cite></cite>
+        </blockquote>
+    </div>
+	<div class="col-md-3">
+        <div class="subheader text-weight-900">Functional Block</div>
+        <blockquote class="blockquote--info">
+            <p>{{lrows.IssueID.FunctionalBlock}}</p>
+            <cite></cite>
+        </blockquote>
+    </div>
+			
+			</div>
+			
+			
+			
+			<div class="row">
+			
+			<div class="col-md-6">
+        <div class="subheader text-weight-900">Lesson Description</div>
+        <blockquote class="blockquote--info">
+            <p>{{lrows.Description}}</p>
+            <cite></cite>
+        </blockquote>
+    </div>
+	
+		<div class="col-md-6">
+        <div class="subheader text-weight-900">Lesson Solution</div>
+        <blockquote class="blockquote--info">
+            <p>{{lrows.Solution}}</p>
+            <cite></cite>
+        </blockquote>
+    </div>
+			
+			</div>
+			
+			<div class="row">
+			<div class="col-md-6">
+        <div class="subheader text-weight-900">Avoidance</div>
+        <blockquote class="blockquote--info">
+            <p>{{lrows.Avoidance}}</p>
+            <cite></cite>
+        </blockquote>
+			</div>
+
+      <div class="col-md-6">
+        <div class="subheader text-weight-900">What did we learn?</div>
+        <blockquote class="blockquote--info">
+            <p>{{lrows.Lesson}}</p>
+            <cite></cite>
+        </blockquote>
+      </div>
+			
+			{% endfor %}
+          <br>
+          
+			<table border="1" id = "threeCols" class="table table--striped" aria-label="Striped table example">
+            {% for lrows in lessons %}
+            {% if lrows.image %}
+            <tr>
+              <header>
+                <th style = "text-align: center; "><h4><b>Reference File</b></h4></th>
+              </header>
+            </tr>
+            
+            <tr>
+              <!--<td><a href="/showprojectDetails/{{dbirows.projectName}}">{{lrows.Description}}</a></td>--> 
+              <td style = "text-align: center;">
+                <!--<img src="{{lrows.image.url}}" width="1100" height="600">-->
+                <img src="{{lrows.image.url}}" width="600" height="300">
+                <br>
+                <!--<a href="{{lrows.image.url}}" download> Download The Available File</a>-->
+              </td>
+            </tr>
+            {% else %}
+            <tr>
+              <header>
+                <th style = "text-align: center; "><h4><b>No Reference Image Available</b></h4></th>
+              </header>
+            </tr>
+            <td style = "text-align: center;">
+              <img src="{% static 'img/No_image_available.png' %}" width="600" height="300">
+            </td>
+            {% endif %}
+            {% endfor %}
+          </table>
+         <br>
+         <!-- <a href="/LLM/mainPage">Home Page</a> -->
+        <br>
+    <br>
+      <br>
+    </div>
+  </body>
+</html>

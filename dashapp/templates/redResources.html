@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Red/Blue Emp Details</title>
+	{% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="{% static 'css/cui-standard.min.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+</head>
+<body class='cui' data-theme="dark">
+	<header class="header">
+    <div class="container">
+        <div class="header-panels">
+            <div class="header-panel">
+                <a class="header__logo" href="http://www.cisco.com" target="_blank">
+                    <img src="{% static 'img/cisco.png' %}" width="80" height="80">
+                </a>
+                <div class="header__title">Red/Blue Employee Details</div>
+            </div>
+            <div class="header-panel header-panel--right">
+                <div class="header-item">
+                    <ul id="tabsheader" class="tabs">
+                        <li id="tabsheader-1" class="tab">
+                            <a href="/redBlueResources/">
+                                <div class="tab__heading">Blue Badge </div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-2" class="tab active">
+                            <a href="#">
+                                <div class="tab__heading">Red Badge</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/managers/">
+                                <div class="tab__heading">Managers</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/resources/">
+                                <div class="tab__heading">Resources Page</div>
+                            </a>
+                        </li>
+                        <li id="tabsheader-3" class="tab">
+                            <a href="/mainpage/">
+                                <div class="tab__heading">Home</div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+   </div>
+</header>
+<br>
+<br>
+<br>
+<div>
+	<div class="maincontainer">
+		<div class="row base-margin-bottom">
+    		<div class="col-12">
+        		<div class="panel"><center class="text-weight-900">Migration Team's Red Badge Employee Information</center></div>
+   			 </div>
+		</div>
+		<div class="row base-margin-bottom">
+    		<div class="col-4">
+        		<div class="panel"><ul ><LH class="text-weight-700">RedBadges Overall View</LH>
+        			<li>Total Red Badge Count: <b>{{totalRedCount}}</b></li>
+        			<li>Total Projects they are Part of: <b>{{projectsCount}}</b></li>
+        			<ul> <LH class="text-weight-600">Projects List</LH>
+        			{% for proj in projects%}
+        			<li>Project: <b>{{proj}}</b></li>
+        			{% endfor %}
+        			</ul>
+        			<li>Resources Under Enterprise Projects: <b>{{entCount}}</b></li>
+        			<li>Resources Under SP Projects: <b>{{spCount}}</b></li>
+        			</ul>
+        		</div>
+        		
+    		</div>
+    		<div class="col-4">
+        		<div class="panel"><ul ><LH class="text-weight-700">Red Badges Not Part of any Projects</LH>
+        			<li>Count of Resources: <b>{{notAlignedToProjectsCount}}</b></li>
+        				<li><ul><LH class="text-weight-600">Resources Info Below</LH>
+        				{% for notInProj in notAlignedToProjects %}
+        				<li>Resource Name: <b>{{notInProj.name}}</b> and CECID: <b>{{notInProj.cecID}}</b></li>
+        				{% endfor %}
+        				</ul></li>
+        			</ul>
+        	</div>
+    		</div>
+    		<div class="col-4">
+        		<div class="panel"><ul ><LH class="text-weight-700">Leads/Lead Capable Info</LH>
+        			<li><ul><LH class="text-weight-600">Leads Info</LH>
+        				{% for leads in redLeads%}
+        				<li>Name: <b>{{leads.name}}</b> Inclined Towards: <b>{{leads.entOrSp}}</b></li>
+        				{% endfor %}
+        			</ul>
+        			</li>
+
+        			<li><ul><LH class="text-weight-600">Lead Capable</LH>
+        				{% for leads in leadsCapable%}
+        				<li>Name: <b>{{leads.name}}</b> Inclined Towards: <b>{{leads.entOrSp}}</b></li>
+        				{% endfor %}
+        			</ul>
+        			</li>
+
+        		</ul>
+        		</div>
+    		</div>
+	</div>
+	<script>
+     	window.onload = function(){
+
+      	leadsvsLeadsCapable({{leadsDougnutLabels|safe}},{{leadsDougnutCount|safe}});
+      	redWithoutProjects({{noProjDougnutLabels|safe}},{{noProjDougnutCount}});
+
+  };
+  </script>
+	<div class="row base-margin-bottom">
+    	<div class="col-6">
+        	<div class="panel">
+        		<canvas id="leadscapableLeads"></canvas>
+        	</div>
+    	</div>
+    	<div class="col-6">
+        	<div class="panel">
+        		<canvas id="redWithoutProjects"></canvas>
+        	</div>
+    	</div>
+	</div>
+
+	</div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+<script type="text/javascript" src="{% static 'js/dougnut.js' %}"></script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/gh/emn178/chartjs-plugin-labels/src/chartjs-plugin-labels.js"></script>
+</body>
+</html>

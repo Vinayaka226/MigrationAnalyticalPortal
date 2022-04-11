@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>LLM Portal</title>
+    {% load static %}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.js"></script>
+  </head>
+  <body>
+
+  <nav class="navbar navbar-inverse" id="navmain">
+    <div class="navbar-header">
+      <!--<img src="cisco-white.png" alt="No Image" height="70" width="70">-->
+      <a class="navbar-brand" href="#">LLM Portal</a>
+    </div>
+    <div class="navbar-brand-header">
+        <h3>Lesson Learnt Management</h3>
+    </div>
+    <ul class="navnew navbar-navnew">
+      <li><a href="#">Cisco</a></li>
+    </ul>
+    <br>
+    <br>
+    <div id="topnav1" class="topnav1">
+      <a href="/LLM/mainPage">Home</a>
+      <a class= "active" href="#">Add Lesson</a>
+      <a href="/account/logout">Logout</a>
+   </div>
+  </nav>
+
+  <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <!--<a href="mainpage">Home</a>-->
+      <a href="#">Morgan Stanley - Wealth Management</a>
+      <a href="#">Resource Status</a>
+      <a href="#">Automation</a>
+      <a href="#">Knowledge Base</a>
+      <a href="#">Accolades</a>
+      <a href="http://10.65.68.24:8000/uploadProjectDetails">Upload Project Details</a>
+  </div>
+
+<!-- Use any element to open the sidenav -->
+<span style="font-size:20px;cursor:pointer" onclick="openNav()">&#9776; open</span>
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "15%";
+  document.getElementById("main").style.marginLeft = "15%";
+  document.getElementById("navmain").style.marginLeft = "15%";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+  document.getElementById("main").style.marginLeft = "10%";
+  document.getElementById("navmain").style.marginLeft = "0";
+}
+/*
+$(document).ready(function(){
+
+    $('#threeCols td.y_n').each(function(){
+        if ($(this).text() == "Green") {
+            $(this).css('width','50px');
+            $(this).css('margin','0 42%');
+            $(this).css('height','40px');
+            $(this).css('float','left');
+            $(this).css('background-color','#3BB300');
+            $(this).css('border-radius','200px');
+            $(this).css('color','#3BB300');
+            $(this).css('padding-left','10px');
+            $(this).css('padding-right','10px');
+            $(this).css('padding-top','10px');
+            $(this).css('padding-bottom','10px');
+        }
+        else if ($(this).text() == "Amber"){
+          $(this).css('width','50px');
+          $(this).css('margin','0 42%');
+          $(this).css('height','40px');
+          $(this).css('float','left');
+          $(this).css('background-color','#FFB366');
+          $(this).css('border-radius','200px');
+          $(this).css('color','#FFB366');
+          $(this).css('padding-left','10px');
+          $(this).css('padding-right','10px');
+          $(this).css('padding-top','10px');
+          $(this).css('padding-bottom','10px');
+        }
+        else{
+          $(this).css('width','50px');
+          $(this).css('margin','0 42%');
+          $(this).css('height','40px');
+          $(this).css('float','left');
+          $(this).css('background-color','#FF8080');
+          $(this).css('border-radius','200px');
+          $(this).css('color','#FF8080');
+          $(this).css('padding-left','10px');
+          $(this).css('padding-right','10px');
+          $(this).css('padding-top','10px');
+          $(this).css('padding-bottom','10px');
+          $(this).css('text-align','center');
+        }
+    });
+}
+
+);*/
+</script>
+
+<div id = "main">
+<div id = 'filters'>
+  <h3 align='center'>Add New Lesson</h3><br>
+  <form action="/addLessons/" method="POST">
+    <div id = 'f1'>
+      <label for="fblock" >Lesson Title</label><br>
+      <input type="text" id="Lesson" name="Lesson">       
+    </div>
+    <div id = 'f2'>
+      <label for="do">Region</label><br>
+      <input type="text" id="Region" name="Region">                          
+    </div>
+    <div id = 'f3'>
+      <label for="region">Date Of Occurence</label><br>
+      <input type="text" id="Date_of_Migration" name="Date_of_Migration">  
+    </div>
+    <div id = 'f3'>
+      <label for="region">Functional Block</label><br>
+      <input type="text" id="FunctionalBlock" name="FunctionalBlock">  
+    </div>
+    <div id = 'f3'>
+      <label for="region">Activity Type</label><br>
+      <input type="text" id="Activity_Type" name="Activity_Type">  
+    </div>
+    <div id = 'f3'>
+      <label for="region">Device/OS type</label><br>
+      <input type="text" id="DeviceOs" name="DeviceOs">  
+    </div>
+    <div id = 'f3'>
+      <label for="region">Issue Description and Impact</label><br>
+      <input type="text" id="Description" name="Description">  
+    </div>
+    <div id = 'f3'>
+      <label for="region">How Was it Resolved?</label><br>
+      <input type="text" id="Solution" name="Solution">  
+    </div>
+    <div id = 'f3'>
+      <label for="region">How to Avoid it?</label><br>
+      <input type="text" id="Avoidance" name="Avoidance">  
+    </div>
+    <div id = 'f3'>
+      <label for="region">Current Status and Comments</label><br>
+      <input type="text" id="Status" name="Status">  
+    </div>
+    <div id = 'f3'>
+      <label for="region">Document Location and TAC ID</label><br>
+      <input type="text" id="TACID" name="TACID">  
+    </div>
+    <div id = "button">
+      <input type="Submit" value="Filter">   
+    </div>
+  </form>
+</div>
+<br>
+          
+         <!-- <br>
+          <a href="/addDash">Add New Project</a> 
+        <br>
+    <br> -->
+      
+    </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+  <script type="text/javascript" src="{% static 'js/charts.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/ChartsPie.js' %}"></script>
+  </body>
+</html>
